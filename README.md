@@ -8,4 +8,4 @@ This paper won the [Best Student Paper Award](https://mrs2017.org/awards/) in MR
 
 The following figure compares the extisting methods with the Hybrid method introduced in this paper.
 
-![](./Latex/MRS_presentation/figs/synopsis.png)
+![](./PaperAndPresentation/MRS_presentation/figs/synopsis.png)
