@@ -1,0 +1,268 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass IEEEtran
+\begin_preamble
+\input{TemplateFiles/inc}
+\usepackage{amsthm}
+\newtheorem{theorem}{}[section]
+\newtheorem{lemma}[theorem]{}\usepackage{nomencl}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\DeclareMathOperator*{\argmin}{argmin}  
+\makenomenclature
+\usepackage{xifthen}
+\usepackage{xparse}
+%\newcommand{\vect}{\bf}
+\newcommand{\vect}[1]{{\mathbf{#1}}}
+\newcommand{\matr}{\bf}
+\newtheorem{prop}{}\newtheorem{remark}{}\usepackage{pgfplots}
+\newlength\figureheight 
+\newlength\figurewidth
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false} 
+%\renewcommand{\footnotesize}{\footnotesize}
+\renewcommand{\footnotesize}{\fontsize{7.5pt}{9pt}\selectfont}
+%\usepackage{enumitem}
+\newcommand{\sxx}[1]{{\color{red} - S: #1 - \ }}  % Suman's comments
+\newcommand{\axx}[1]{{\color{orange} - #1 - \ }}
+\newcommand{\tl}[1]{{\color{orange} - Fix Language: #1 - \ }}  % Typo or Language
+\newcommand{\bxx}[1]{{\color{blue} - T: #1 - \ }}  % AmirHossein's comments
+\newcommand{\XX}[3][2]{\mathbf{x}_{\tiny #2}^{\tiny #3}}
+\newcommand{\pp}[3][2]{p(x #2 | #3)}
+
+\newcommand{\xx}[3][2]{\mathbf{x}_{ #2}^{ #3}}
+\newcommand{\zz}[3][2]{\mathbf{z}_{ #2}^{ #3}}
+\newcommand{\ZZ}[3][2]{\mathbf{z}_{ #2}^{ #3}}
+%\newcommand{\yy}[3][2]{\mathpzc{y}_{\tiny #2}^{\tiny #3}}
+%\newcommand{\YY}[3][2]{\mathpzc{Y}_{\tiny #2}^{\tiny #3}}
+
+\newcommand{\yy}[3][2]{\psi^{\tiny #3}({\tiny #2})}
+\newcommand{\YY}[3][2]{\phi^{\tiny #3}({\tiny #2})}
+\newcommand{\suf}[1]{\textsc{\tiny #1}}  % Suman's comments
+
+\newcommand{\ii}[3][2]{\overline{\delta \mathpzc{i}}_{\tiny {#2}}^{\tiny {#3}}}
+\newcommand{\II}[3][2]{\overline{\delta \mathpzc{I}}_{\tiny {#2}}^{\tiny {#3}}}
+\newcommand{\psx}{p_*(\vect{x})}
+\newcommand{\pcfx}{p_{\textsc{\tiny CF}}(\vect{x})}
+\newcommand{\phybx}{p_{\textsc{\tiny HYB}}(\vect{x})}
+\newcommand{\pixz}{\tilde{p}^i(\xx[]{k}{}\vert \vect{Z}_{k})}
+\newcommand{\pixzm}{\tilde{p}^i(\xx[]{k}{}\vert \vect{Z}_{k-1})}
+\newcommand{\pzix}{\tilde{p}^i( \vect{z}_{k} \vert \xx[]{k}{})}
+\newcommand{ \pcf}{\frac{1}{\eta_{\textsuperscript{CF}}}\prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{})^{\omega_i} \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\omega_i}}
+\newcommand{ \phyb}{\frac{1}{\eta_{\textsc{\tiny HYB}}}\prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{}) \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\bar{\omega}_i} }
+ \newcommand{ \pstar}{\frac{1}{\eta_*} \{ \prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{}) \} p(\xx[]{k}{}|\vect{Z}_{k-1})}
+ 
+ \newcommand{ \npcf}{\prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{})^{\omega_i} \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\omega_i}}
+ \newcommand{ \nphyb}{\prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{}) \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\bar{\omega}_i} }
+ \newcommand{ \npstar}{ \{ \prod_{i=1}^{N} p(\vect{z}_{k}^i | \xx[]{k}{}) \} p(\xx[]{k}{}|\vect{Z}_{k-1})}
+ 
+
+\DeclareDocumentCommand{\ais}{m m m  }{{#1}_{#2}^{#3}}
+\DeclareDocumentCommand{\bis}{m m m  }{{#1}_{{\tiny #2}}^{{\tiny #3}}}
+\DeclareDocumentCommand{\cis}{m m m  }{{#1}_{{\tiny #2}}^{{\tiny {#3}}}}
+\newcommand{\ti}[1]{\textsc{\tiny #1}}
+\newcommand{\lrp}[1]{\left( #1 \right) }
+
+
+
+\allowdisplaybreaks[1]
+
+
+% \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{microtype}
+\usepackage{lipsum}
+
+
+\title{\LARGE \bf Unifying Consensus and Covariance Intersection for Decentralized State Estimation}
+%\author {Amirhossein Tamjidi, Suman Chakravorty, Dylan Shell}
+%\author{\authorblockN{Amirhossein Tamjidi}
+%\authorblockA{Department of Aerospace\\ Engineering\\
+%Texas A\&M University\\
+%}
+%\and
+%\authorblockN{Suman Chakravorty}
+%\authorblockA{Department of Aerospace\\ Engineering \\
+%Texas A\&M University}
+%\and
+%\authorblockA{Dylan Shell\\
+%Department of Computer Science \\and Engineering\\
+%Texas A\&M University}}
+\end_preamble
+\options conference
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Abstract
+This paper presents a new recursive information consensus filter for decentraliz
+ed dynamic-state estimation.
+ Local estimators are assumed to have access only to local information and
+ no structure is assumed about the topology of the communication network,
+ which need not be connected at all times.
+ Iterative Covariance Intersection (ICI) is used to reach consensus over
+ priors which might become correlated, while consensus over new information
+ is handled using weights based on a Metropolis Hastings Markov Chain (MHMC).
+ We establish bounds for estimation performance and show that our method
+ produces unbiased conservative estimates that are better than CI.
+ The performance of the proposed method is evaluated and compared with competing
+ algorithms on an atmospheric dispersion problem.
+ 
+\end_layout
+
+\begin_layout Subsection
+Prooving that Hybrid method is better than ICF
+\end_layout
+
+\begin_layout Standard
+Lets define
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\overline{\mathcal{O}}_{k}=\prod_{i=1}^{N}\mathcal{O}_{k}^{i}
+\]
+
+\end_inset
+
+and 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\overline{\mathcal{O}}_{k}^{\{\omega_{i}\}}=\prod_{i=1}^{N}(\mathcal{O}_{k}^{i})^{\omega_{i}}‍
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assume that the Hybrid method and ICF start with a a set of priors that
+ have the following property.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathcal{\mathcal{D}}(p_{T}\vert\tilde{p}_{i}^{\suf{HYB}})\leq\mathcal{\mathcal{D}}(p_{T}\vert\tilde{p}_{i}^{\suf{ICF}}),\forall i\in\{1,\cdots,N\}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $p$
+\end_inset
+
+ is the centralized estimate
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+p_{T}=\pi_{0}\prod_{k=1}^{T}(\mathcal{P}_{k\vert k-1}\overline{\mathcal{O}}_{k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

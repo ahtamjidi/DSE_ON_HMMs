@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: MSR_CameraReady.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: RSS_2017.bib
+I was expecting a `,' or a `}'---line 13441 of file RSS_2017.bib
+ : 
+ : @INPROCEEDINGS{capitan2012decaucpomdp,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 14229 of file RSS_2017.bib
+ : @inproceedings{ajgl2015design
+ :                              ,
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.11 (2003/04/02) by Michael Shell.
+-- http://www.ctan.org/tex-archive/macros/latex/contrib/supported/IEEEtran/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 28 entries,
+            3975 wiz_defined-function locations,
+            1187 strings with 15892 characters,
+and the built_in function-call counts, 24845 in all, are:
+= -- 2044
+> -- 525
+< -- 269
++ -- 311
+- -- 72
+* -- 1201
+:= -- 3572
+add.period$ -- 60
+call.type$ -- 28
+change.case$ -- 28
+chr.to.int$ -- 636
+cite$ -- 28
+duplicate$ -- 1727
+empty$ -- 1941
+format.name$ -- 97
+if$ -- 5799
+int.to.chr$ -- 0
+int.to.str$ -- 28
+missing$ -- 266
+newline$ -- 104
+num.names$ -- 28
+pop$ -- 566
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 1955
+stack$ -- 0
+substring$ -- 1519
+swap$ -- 1521
+text.length$ -- 57
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 0
+warning$ -- 0
+while$ -- 125
+width$ -- 30
+write$ -- 300
+(There were 2 error messages)

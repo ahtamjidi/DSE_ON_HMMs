@@ -1,0 +1,24 @@
+%%
+%% This file will generate fast loadable files and documentation
+%% driver files from the doc files in this package when run through
+%% LaTeX or TeX.
+%%
+\def\batchfile{lgrind.ins}
+\input docstrip.tex
+\preamble
+
+LGrind is used to format source code of different programming
+languages for LaTeX.
+ 
+LGrind is a minor adaptation of Jerry Leichter's tgrind for LaTeX,
+which was a notable improvement upon Van Jacobsen's tgrind for
+plain TeX, which was adapted from vgrind, a troff prettyprinter.
+
+\endpreamble
+\keepsilent
+
+\generateFile{lgrind.sty}{t}{%
+  \from{lgrind.dtx}{package}}
+
+\generateFile{doc-lgrind.lg}{t}{%
+  \from{lgrind.dtx}{example}}

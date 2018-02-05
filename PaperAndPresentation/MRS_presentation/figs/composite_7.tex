@@ -1,0 +1,133 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.777\textwidth,
+height=0.24\textwidth,
+at={(0\textwidth,0.352\textwidth)},
+scale only axis,
+xmin=0,
+xmax=1,
+xtick={  0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1},
+xlabel={Probablity of Link Failure},
+xmajorgrids,
+ymin=0.6,
+ymax=1.05,
+ytick={0.6, 0.7, 0.8, 0.9,   1},
+ylabel={${\text{[det ratio]}}^{\text{1/80}}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={${\text{[det ratio]}}^{\text{1/80}}$},
+legend style={legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=blue,solid,line width=2.0pt,mark=o,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.999999999999967\\
+0.1	1.00000158269278\\
+0.2	1.00000212926993\\
+0.3	0.999290618288621\\
+0.4	0.986990187832471\\
+0.5	0.983829676647235\\
+0.6	0.976770402996627\\
+0.7	0.954276103799111\\
+0.8	0.904081387256995\\
+0.9	0.854431085355276\\
+1	0.676275176380441\\
+};
+\addlegendentry{Hybrid};
+
+\addplot [color=red,dashdotted,line width=2.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.866829634767757\\
+0.1	0.86681620843843\\
+0.2	0.866723664183391\\
+0.3	0.866542605167923\\
+0.4	0.864403910850494\\
+0.5	0.864197109727685\\
+0.6	0.863707357291093\\
+0.7	0.858520270746827\\
+0.8	0.841323297941579\\
+0.9	0.818059487271007\\
+1	0.676275176380439\\
+};
+\addlegendentry{ICI};
+
+\end{axis}
+
+\begin{axis}[%
+width=0.777\textwidth,
+height=0.24\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0,
+xmax=1,
+xtick={  0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9,   1},
+xlabel={Probablity of Link Failure},
+xmajorgrids,
+ymin=0,
+ymax=1.05,
+ytick={  0, 0.2, 0.4, 0.6, 0.8,   1},
+ylabel={$\text{D}_{\text{B}}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Bhattacharyya Distance},
+legend style={legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=blue,solid,line width=2.0pt,mark=o,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.999999999999997\\
+0.1	0.999998716429475\\
+0.2	0.99997984768421\\
+0.3	0.987029616939263\\
+0.4	0.913185617584752\\
+0.5	0.821814186191355\\
+0.6	0.767002829655032\\
+0.7	0.595338072485605\\
+0.8	0.283817946464577\\
+0.9	0.161705718471468\\
+1	0.00748472330063145\\
+};
+\addlegendentry{Hybrid};
+
+\addplot [color=red,dashdotted,line width=2.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.352940661300763\\
+0.1	0.353081070206302\\
+0.2	0.335426196995786\\
+0.3	0.339269640535606\\
+0.4	0.334930218472385\\
+0.5	0.328360914514182\\
+0.6	0.293069210645253\\
+0.7	0.307328795394825\\
+0.8	0.198078002628855\\
+0.9	0.132169488776635\\
+1	0.00748472330062795\\
+};
+\addlegendentry{ICI};
+
+\addplot [color=green,dashdotted,line width=3.0pt]
+  table[row sep=crcr]{%
+0	1\\
+0.1	1\\
+0.2	1\\
+0.2	0\\
+0.3	0\\
+0.4	0\\
+0.5	0\\
+0.6	0\\
+0.7	0\\
+0.8	0\\
+0.9	0\\
+1	0\\
+};
+\addlegendentry{Centralized};
+
+\end{axis}
+\end{tikzpicture}%

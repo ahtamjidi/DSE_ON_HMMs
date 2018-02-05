@@ -1,0 +1,9 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Distributed State Estimation Preliminaries}{5}{0}{2}
+\beamer@sectionintoc {3}{Hidden Markov Model and Graph Notation}{7}{0}{3}
+\beamer@sectionintoc {4}{Centralized Estimation on Sensor Networks}{8}{0}{4}
+\beamer@sectionintoc {5}{Distributed Consensus Based Estimation}{9}{0}{5}
+\beamer@sectionintoc {6}{Iterative Conservative Fusion}{14}{0}{6}
+\beamer@sectionintoc {7}{Hybrid Algorithm}{16}{0}{7}
+\beamer@sectionintoc {8}{Experimental Results}{17}{0}{8}

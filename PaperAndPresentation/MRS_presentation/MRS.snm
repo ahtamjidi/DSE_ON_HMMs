@@ -1,0 +1,10 @@
+\beamer@slide {fig:diffusion2}{3}
+\beamer@slide {fig:diffusion}{3}
+\beamer@slide {subsec:Preliminaries}{6}
+\beamer@slide {fig:fu}{6}
+\beamer@slide {table:1}{7}
+\beamer@slide {eq:pred}{11}
+\beamer@slide {eq:update}{11}
+\beamer@slide {eq:mhmc}{13}
+\beamer@slide {eq:crit}{16}
+\beamer@slide {alg:inf-predict}{20}

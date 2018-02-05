@@ -1,0 +1,547 @@
+% latexcad.tex
+% Documentation file (LaTeX) for LaTeX-CAD
+% John Leis leis@usq.edu.au
+
+% Version 1.0 Orig 4 November 1995
+% Version 1.1 1 Dec 1995, (1.1a 11 Dec)
+% Version 1.2 14 Dec 1995
+% Version 1.3 17 Dec 1995 
+% Version 1.4 20 Dec 1995
+% Version 1.5 27 January 1996
+% Version 1.6  18 February 1996
+%              21 March 1996 - modified to 2e compatibility
+% Version 1.7 8 Aug 1996 - shadebox and shadowbox bugs fixed
+% Version 1.8  Nov 1996 - archive with epic/eepic fixed
+% Version 1.9  Mar 1998 - archive with epic/eepic finally fixed
+
+\documentclass[a4paper]{article}
+
+\usepackage{lgrind}     % for formated source code
+\usepackage{latexcad}   % latexcad.sty for drawings etc
+
+
+\newcommand{\bs}{$\backslash$}
+\pagestyle{headings}
+
+\begin{document}
+
+\title{ \large\bf  \LaTeX-CAD - A Drawing Package for \LaTeXe\ }
+\author{John W Leis \\ leis@usq.edu.au}
+\date{Version 1.9 \\ March 1998}
+\maketitle
+
+%%%%% Introduction
+\section{Introduction}
+
+
+%% disclaimer
+\subsection{Disclaimer}
+The author accepts no liability, express or implied, for any 
+damages, whether direct or consequential, associated with the
+use of this software. 
+
+%%%% availability
+\subsection{Availability}
+LaTeX-CAD is freely available and may be distributed provided
+no files are modified, added to in any way, or deleted.
+If you use this software, an email to the author would be appreciated.
+
+%%%% scope
+\subsection{Scope}
+LaTeX-CAD is a drawing package for creating \LaTeX-compatible line
+diagrams under the Windows environment. It can create a variety of
+lines and shapes incorporating \LaTeX\/ fonts and symbols.
+The package includes a number of macros for incorporating the
+resulting drawings into a \LaTeX\/ source document. In addition to a
+variety of illustrating shapes, the package may be used to annotate
+plots produced by the GnuPlot plotting package. Figures~\ref{fig:lcadeg}
+and~\ref{fig:gnuplot} show simple illustrations of these features.
+LaTeX-CAD has been tested on screen resolutions down to $800\times 600$ SVGA.
+Users with screen resolutions lower than this, including standard VGA, may
+experience problems - this is due to the compromise between clarity at higher
+resolutions and drawing size at lower resolutions. A higher resolution
+(e.g. $1024\times 768$) is strongly recommended.
+I believe LaTeX-CAD will now (Version 1.8+) operate satisfactorily under
+Windows '95.
+
+%%%%%% Capabilities
+\subsection{ Capabilities }
+A variety of standard line-drawing shapes are available in \LaTeX-CAD.
+These are illustrated in Figure~\ref{fig:lcadeg}.
+Section~\ref{sec:objecttypes} details these object types.
+
+\placedrawing{lcadeg.lp}{\LaTeX-CAD objects}{fig:lcadeg}
+\placedrawing{gnuplot.lp}{A \LaTeX-CAD example (interactive editing of a GnuPlot graph).}{fig:gnuplot}
+
+
+%%%%%%% Requirements
+\subsection{ Requirements }
+In order to use \LaTeX-CAD, the following system requirements must be met:-
+\begin{itemize}
+	\item Windows 3.1x ;
+	\item \LaTeX\/ package ;
+	\item A DVI viewer capable of interpreting tpic \bs special's, and
+	\item Metafont, for generating missing fonts. (Note: dviwin may
+		be set up for automatic generation of missing fonts.)
+\end{itemize}
+The author uses the g\TeX\ distribution (available on CTAN archive sites),
+which includes: -
+\begin{itemize}
+	\item g\TeX\ distribution 2.1
+	\item \TeX\ 3.1415 (C Version 6.1) ;
+	\item dviwin 2.9
+	\item metafont 2.71
+	\item dvips 5.5 (optional, for PostScript output only)
+\end{itemize}
+
+LaTeX-CAD 1.9 has been tested with with \LaTeXe\ .
+
+%%%%%% Installation 
+\section{ Installation }
+The files shown in Table~\ref{tab:files} are contained in the
+distribution.
+A defaults file, latexcad.ini is also required to store
+user's preferences. This is created by the application if
+it does not already exist, and will be located in
+the \bs windows directory.
+
+\begin{table}
+	\begin{tabular}{lll}
+		\hline\hline
+		File Name & Description & Installed Location \\
+		\hline
+		latexcad.exe & Windows executable & usually c:\bs tex \\
+		latexcad.hlp & Windows help file  & same as above  \\
+		vbrun300.dll & dynamic link library    & c:\bs windows \bs system \\
+		cmdialog.vbx & common dialog control   & c:\bs windows \bs system \\
+		commdlg.dll  & common dialog library   & c:\bs windows \bs system \\
+		latexcad.sty & macro file         & in TEXINPUTS path \\
+		fancybox.sty & box macros         & as above \\
+		epic.sty     & picture macros     & as above \\
+		eepic.sty    & extended picture macros & as above \\
+		epsf.sty     & postscript macros  & as above \\
+		rotate.sty   & postscript text rotation macros  & as above \\
+		\hline
+	\end{tabular}
+	\caption{Contents of the distribution and required locations.}
+	\label{tab:files}
+\end{table}
+
+%%%%%% operation 
+\section{ Operation }
+
+%%%%% CAD operations
+\subsection{ CAD Operations }
+Upon entry to LaTeX-CAD, the user is placed in edit mode. Objects in
+the categories  Lines, Boxes, Curves, Dots or Text may be drawn via
+the appropriate menu selection. When selected, the `action' box
+reflects the appropriate action to be taken (for example, selecting
+the end point of a line, or the bounding box of a circle). Three
+line thicknesses may be selected, and the 2mm grid may be used in
+`snap to' mode, in which all selections are rounded to the nearest
+grid point. A number of objects incorporate a textual component, in
+which case the user is prompted via a standard dialog box for the
+text. This text may be any \LaTeX\/ text, so constructs such as
+\verb! $\sum f(x)$! and \verb! \textit{\small current level}!
+are valid. Several commonly-used objects may be selected via
+keyboard shortcuts (such as ctrl-r for vectors). These are shown
+on the pull-down menus.
+
+When drawing an object, the current operation is cancelled by clicking
+the \textit{right} mouse button, or pressing the escape key. Lines (solid,
+dashed and dotted) and vectors (arrows) are a slight exception to this.
+When drawing a line, the next line is continued by default from the
+end of the previous one. Clicking the right mouse will cancel this follow-on,
+\textit{but you will remain in line-draw mode}. A second click on the right mouse
+button is necessary to cancel line-drawing mode. 
+
+\textit{Single objects} may then be selected by clicking the left mouse button when
+the mouse cursor is at approximately the centre of the object (exception:
+text objects which are aligned to the left or right).
+This object thus selected will appear in a different color, and it is
+possible to delete or cut the object using the menu (or shortcut keys).
+If the object contains text, the `edit text' button will be enabled.
+In the case of objects which are very close together, additional left-mouse
+clicks will select the next nearest object in sequence.
+
+To move a \textit{single object}, hold down the \textit{control} key and then
+select the object by clicking with the left mouse button. The mouse
+cursor will change to a different style of pointer, and an outline of the
+object will appear. Simply move the cursor to the desired object location
+and click the mouse to place the object in a new position.
+
+\textit{Groups of objects} may be selected by holding down the control key, and
+dragging the mouse (ie hold down mouse button and move mouse). A moving
+selection rectangle will appear. Objects within this selection region will
+then change color.
+The selected objects are then in the copy buffer, and may then be cut or
+pasted according to the edit menu. Shortcuts for these operations are
+\textit{ctrl-x} (cut), \textit{ctrl-v} (paste) and \textit{del} (delete).
+
+Data points outlining a curve or a GnuPlot picture may also be
+imported into LaTeX-CAD. This operation is covered in
+Section~\ref{sec:xygnu}.
+
+The current drawing is saved under the file menu, and may be reloaded
+later. A recent file list is also maintained. The default extensions
+are .lp (\LaTeX\/ picture), .sp (Sli\TeX\/ picture), .gp (GnuPlot using
+eepic macros, see later). These extensions are simply for convenience
+in identifying file types, and are not used in any way by LaTeX-CAD.
+Often, for example, a similar picture is required for Sli\TeX\ using
+thicker lines than for a printed work, thus the .sp extension may
+be used.
+
+A configuration file, latexcad.ini, is maintained in the Windows
+directory. The format of this file is shown in Figure~\ref{fig:inifile}.
+
+\begin{figure}
+	\begin{center}
+	\begin{tabular}{l}
+		\hline
+		$[$ DRAWING $]$ \\
+		Lines=thin \\
+		SnapToGrid=on \\
+		DrawGrid=on \\
+		Crosshair=off\\
+		NormalizeOnSave=no \\
+		ScreenFontSize=9.6\\
+		\\
+		$[$WINDOW$]$ \\
+		WindowState=FullScreen \\
+		Width= 12384 \\
+		Height= 9312 \\
+		\\
+		$[$RECENT$]$ \\
+		File 1=d:\bs latex\bs latexcad\bs gnuplot.lp \\
+		File 2=d:\bs latex\bs latexcad\bs lcadeg1.lp \\
+		File 3=d:\bs latex\bs latexcad\bs lcadeg.lp \\
+		File 4=c:\bs temp\bs temp.lp \\
+		\hline\hline
+	\end{tabular}
+	\caption{latexcad.ini file}
+	\label{fig:inifile}
+	\end{center}
+\end{figure}
+
+
+%%% latex source
+\subsection{ \LaTeX\/ Source } \label{sec:source}
+Once the drawing has been created and saved, it may be incorporated
+into the \LaTeX\/ source file using either normal \LaTeXe\ conventions
+as shown in Figure~\ref{fig:longhand}, or a number of supplied 
+``shorthand'' macros. Note that the ``long'' method is required if you 
+wish to use, for example, long and short captions or the ``caption''
+package, or you wish greater control over the final appearance of the drawing.
+
+\begin{figure}
+	\centering
+	\begin{tabbing}{ll}
+		\hspace{3mm} \= \kill
+		 \verb! %-------- include LaTeX-CAD drawing test.lp ------------- ! \\
+		 \verb! \setlength{\unitlength}{1.0mm}  % use 1.0mm default scale ! \\
+		 \verb! \begin{figure} ! \\
+			\> \verb! \centering !  \\
+			\> \verb! \input{test.lp}   % output file from latexcad ! \\
+			\> \verb! \caption[short caption here]{long caption is placed here} ! \\
+			\> \verb! \label{fig:test}  % NOTE: \caption MUST come before the \label ! \\
+		 \verb! \end{figure} !   \\
+		 \verb! %-------------------------------------------------------- ! \\
+	\end{tabbing}
+	\caption{Incorporating LaTeX-CAD drawings -- longhand method.}
+	\label{fig:longhand}
+\end{figure}
+
+The usage of these macros is
+\begin{verbatim}
+	\placedrawing{drawfilename}{drawcaption}{drawlabel}
+\end{verbatim}
+
+Where \textit{drawfilename} is the name of the file saved in LaTeX-CAD,
+\textit{drawcaption} is the caption placed beneath the figure,
+\textit{drawlabel} is the crossreferencing label. For example,
+Figure~\ref{fig:lcadeg} exists in a file \textit{lcadeg.lp}, and is
+placed in the .tex file by the command
+\begin{verbatim}
+\placedrawing{lcadeg.lp}{\LaTeX-CAD standard shapes}{fig:lcadeg}
+\end{verbatim}
+and is cross-referenced as
+\begin{verbatim}
+	 ... see Figure~\ref{fig:lcadeg} ....
+\end{verbatim}
+
+The macros are summarized in Figure~\ref{fig:lcadmacros}. Note that
+the PostScript macros are not required by LaTeX-CAD, but are included
+for reference.
+
+
+\begin{figure}
+	\begin{center}
+	\begin{tabular}{l}
+		\hline
+		\verb! \placedrawing{test.lp}{A Diagram.}{fig:test}! \\
+			\emph{Place a LaTeX-CAD drawing} \\
+			\verb! \drawingscale{0.4mm}! \\
+			\emph{Alter the default 1.0mm scaling for subsequent drawings} \\ 
+			\verb! \placedrawing[p]{test.lp}{A Diagram.}{fig:test}! \\
+			\emph{Place a drawing, with placement argument \underline{p}} \\
+			\verb! \placedrawing*{test.lp}! \\
+			\emph{Place a LaTeX-CAD drawing, with no `Figure' label} \\
+			\verb! \placegraph{test.gp}{A test graph.}{fig:test}! \\
+			\emph{Place a GnuPlot (eepic macro) graph} \\
+			\verb! \placegraph[p]{test.gp}{A test graph.}{fig:test}! \\
+			\emph{As above, with placement argument \underline{p}} \\
+			\verb! \placegraph*{test.gp}!   \\
+			\emph{Place a GnuPlot graph, with no `Figure' caption} \\
+			\verb! \placepostscript{test.eps}{A test.}{fig:test}! \\
+			\emph{Place an encapsulatedPostScript file} \\
+			\verb! \setpostscriptwidth{80mm}!       \\
+			\emph{Change the default 140mm width for next EPS figure }\\
+			\verb! \placepostscript[p]{test.eps}{A test.}{fig:test}! \\
+			\emph{Place a PostScript figure with positioning arguments} \\
+			\verb! \placepostscript*{test.eps}! \\
+			\emph{Place a PostScript figure with no `Figure' caption} \\
+			\verb! \placepostscript*[p]{test.eps}! \\
+			\emph{A combination of the above} \\
+			\verb! \placeslidedrawing{test.sp}{ A Slide Drawing }! \\
+			\emph{Place a LaTeX-CAD drawing on a slide} \\
+			\verb! \placeslidegraph{test.gp}{ A Slide Graph }! \\
+			\emph{Place a GnuPlot graph on a slide} \\ 
+			\verb! \placeslidepostscript{test.eps}{Slide EPS }! \\
+			\emph{Place an encapsulated PostScript figure on a slide} \\
+		\hline\hline
+	\end{tabular}
+	\end{center}
+	\caption{LaTeX-CAD macros}
+	\label{fig:lcadmacros}
+\end{figure}
+
+The drawing file may be manually edited, but care should be taken
+to ensure only constructs known to LaTeX-CAD are incorporated.
+Figure~\ref{fig:lcadfile} shows an example LaTeX-CAD file.
+
+
+\begin{figure}
+	\begin{center}
+	\begin{tabular}{l}
+		\hline
+		\% LaTeX-CAD 1.9 - requires latexcad.sty \\
+		\bs begin\{picture\}(112,80)             \\
+		\bs thinlines                            \\
+		\bs drawdotline\{8.07\}\{13.03\}\{8.07\}\{70.55\} \\
+		\bs thicklines                          \\
+		\bs drawdotline\{8.07\}\{13.03\}\{8.07\}\{70.55\} \\
+		\bs drawrighttext\{6.31\}\{13.03\}\textit\{some text\} \\
+		\bs end\{picture\}                      \\
+		\hline\hline
+	\end{tabular}
+	\caption{LaTeX-CAD output file}
+	\label{fig:lcadfile}
+	\end{center}
+\end{figure}
+		
+%%%% Object types
+\subsection{ Object Types } \label{sec:objecttypes}
+Several object types are available in LaTeX-CAD. These are
+summarized below.
+
+\begin{description}
+	\item[Lines] Standard lines to any point, dashed lines,
+			dotted lines and vectors. Note that
+			vectors are not available in all possible
+			slopes.
+	\item[Boxes] Framed boxed of any dimension with optional
+			interior text, dashed-line boxes, and
+			boxes with a `shadow'.
+	\item[Curves] Circles with optional centered text,
+			ovals, ellipses, Bezier curves and arcs.
+			Arcs may be drawn by either selecting the
+			end points, or selecting the center and
+			radius. The direction of the arc is determined
+			by the order of endpoint selection.
+	\item[Dots] Small dots, thicker dots and outline dots are available.
+	\item[Braces] Braces with orientation to the left, right,
+			above or below.
+	\item[Text] Any standard \LaTeX\ text may be placed with the
+			reference point to the left, center or
+			right of the (invisible) box enclosing the
+			text. Text may also be enclosed in an outlined box,
+			a double-outline box, a shadowed box, or an oval.
+			Text may be rotated $\pm 90^\circ $, if a
+			PostScript output device is used.
+			(On-screen, rotated text will \emph{not} appear rotated).
+			Stacked text (verically aligned)
+			is also available using the \textit{shortstack} command.
+			Separate each line using `\bs\bs'. Note that the
+			size of \textit{text} on the screen under LaTeX-CAD will only
+			ever be an approximation of the true output dvi/ps
+			size. This is because the true \LaTeX\/ font sizes are
+			unknown to LaTeX-CAD. A default font size of 9.6 points
+			is used - if this seems unrealistic with your screen
+			drivers, change the `ScreenFontSize' parameter in
+			\textit{latexcad.ini} .
+			
+	\item[Arbitrary Paths] Any arbitrary path may be created by
+			means of the XY data point facility. This is
+			covered in Section~\ref{sec:xygnu}.
+	\item[PostScript Graphic] PostScript pictures may be placed in a
+			\LaTeX-CAD drawing. On the screen, they will
+			appear as a colored rectangle.
+	\item[Shading] A rectangular shading region may be selected, with shading
+			from 0\% (white) to 100\% (black). Shaded circles are also
+			available. Note that the shaded circles also draw the
+			outline, whereas the shaded boxes do not. If a solid outline
+			is required for a shaded box it must be drawn separately.
+			Note that the LaTeXCAD shading appearance is consistent
+			with a PostScript printer; some \textsf{dvi} previewers
+			appear to handle the shading/obscuring slightly differently.
+\end{description}
+
+Three line thicknesses are available for objects. The `thinlines'
+thickness is recommended for standard documents, whilst the `thicklines'
+thickness is recommended for Sli\TeX\ slides. These are illustrated in
+Figure~\ref{fig:linethick}.
+
+\placedrawing{linethic.lp}{Line thicknesses}{fig:linethick}
+
+
+\subsection{ X-Y Data and GnuPlots }
+\label{sec:xygnu}
+Arbitrary paths may be constructed using the x-y import facility.
+This is useful for importing waveforms and the like to illustrate
+diagrams, where the waveform shape is more easily generated as
+a series of $(x,y)$ points. 
+
+When drawing x-y points, a bounding box is drawn to enclose the
+points. The points are then read in, and plotted in this bounding
+box. The points are read in from an ASCII text file, one point
+per line, separated by whitespace or commas. An example of a
+QBASIC program to generate such data points is shown in
+Figure~\ref{fig:plotegsrc}, with the result shown in Figure~\ref{fig:lcadeg}.
+(The `lgrind' package is used here for source code formatting.)
+
+\lagrind[h]{ploteg.lg}{BASIC data file generation}{fig:plotegsrc}
+
+Plots output from the GnuPlot plotting package may also be
+incorporated into LaTeX-CAD, for editing. This is illustrated in
+Figure~\ref{fig:gnuplot}. Note that the steps shown below
+\textit{must} be taken before a plot file suitable for LaTeX-CAD is
+produced:
+\begin{center}
+\begin{tabular}{l}
+	set term eepic  \\
+	set out 'plotfile.gp'  \\
+	replot  \\
+	set out \\
+	set term windows \\
+\end{tabular}
+\end{center}
+	
+Since LaTeX-CAD has a finite object space, some very large plots
+may be too large to incorporate. In this case, it is recommended
+that the \textit{set samples} command be used to decrease the sampling
+grid used by Gnuplot. In the case of 3-D plots, the corresponding
+command is \textit{set isosamples}. In either case, plots will render
+more quickly if the number of samples is reduced.
+	
+
+%%%%% changes from previous versions
+\subsection{Changes from Previous Versions}
+A number of enhancements and bug fixes have been introduced
+since version 1.0. Briefly, these are :-
+\begin{itemize}
+	\item Changed name of \LaTeX\/ style file to `latexcad.sty' to
+		avoid conflicts at some installations.
+	\item Changes to the user macros for placing objects, to make them
+		more `\LaTeX-consistent'. (See documentation later
+		in Section~\ref{sec:source}).
+	\item Changed on-screen text font size to more closely
+		\textit{approximate} the true font size in the output file.
+	\item Optional drawing crosshair. Useful for aligning objects.
+	\item Editable object text.
+	\item Changed object selection/movement method.  Click to
+		edit an object's text, control-click to move an object,
+		control-drag to select a region. Movement of selected
+		object to the copy buffer is now automatic (ie don't
+		need to explicitly select \textit{edit-copy} from the menu).
+	\item Several new shortcut control keystrokes have been added.
+		See the pull-down menu for these.
+	\item Shading of a square region is possible, with shading from
+		0 to 100\%. This applies to PostScript devices, and \textsf{dvi}
+		drivers that support this particular \textit{tpic \bs special}.
+		Note that the LaTeXCAD shading appearance is consistent
+		with a PostScript printer; some \textsf{dvi} previewers appear to
+		handle the shading/obscuring slightly differently
+		(ie visibility of objects behind a shaded box).
+	\item Ability to import a PostScript graphic into the LaTeX-CAD drawing.
+	\item Stacked text option (useful for alignment of labels etc).
+	\item Vertical text going up or down the page (PostScript only).
+	\item Fields to explain the meaning of text options in text
+		object dialog box.
+	\item (Version 1.2) Added horizontal/vertical scroll bars (by popular request!)
+	\item Fixed .ini startup bug.
+	\item Changed menu/tools to (hopefully) fit on smaller screens.
+	\item Normalization on exit is now optional, and remembered in .ini file.
+	\item (Version 1.3) Vertical and Horizontal scroll bars.
+	\item Changed default .ini file format.
+	\item Re-arrange menu/tools for smaller screen resolutions.
+	\item Added four-point Bezier curve.
+	\item Fixed bug in vector objects when `snap to grid' is off.
+	\item The current drawing object type is maintained after each draw.
+	\item Changed on-screen text fonts to proportional.
+	\item Added font size to .ini file.
+	\item Added shaded circle object.
+	\item Added framed text object.
+	\item PostScript and DVI documentation no longer included so as to reduce
+		distribution size (these must be compiled; sources are included)
+	\item Made default screen size larger (180mm across).
+	\item (Version 1.4) Fixed some screen font problems.
+	\item Added help file.
+	\item (Version 1.5) Changed single-object selection to allow circular buffer.
+		(for overlayed objects)
+	\item Continuation for line-type objects from endpoint of previous line is now automatic.
+	\item Bound F1 to help function.
+	\item Fixed offset bug in shaded boxes.
+	\item Fixed `overflow' bug under certain startup conditions.
+	\item Added optional end arrows to Bezier curves.
+	\item Version 1.6 - fixed startup bug when running under
+		Windows'95 (does not affect Windows 3.x). Thanks to
+		Michael Basler for beta-testing this patch.
+	\item Line/vector drawing mode is continued until two right mouse-clicks.
+		(This speeds up a lot of drawing construction).
+	\item (Version 1.7) - Alignment problem with shadow boxes (executable fix),
+		Alignment problem with shaded boxes (style file fix).
+	\item (Version 1.8) - Re-bundled with correct epic/eepic.
+	\item Added example to documentation about incorporating drawings
+			without using special macros (only default \LaTeX\/ constructs)
+	\item (Version 1.9) - Re-bundled with modified epic/eepic 
+		(cr/lf problem under some \LaTeX's).
+\end{itemize}
+Thanks to all those who contributed suggestions and reports of 
+problems in earlier versions. 
+
+
+%%%% Acknowledgements.
+\section{ Acknowledgements }
+The following \LaTeX\/ macro packages are incorporated as part of
+LaTeX-CAD :-
+\begin{description}
+	\item[epic] Picture macros (Sunil Podar)
+	\item[eepic] Additional picture macros (Conrad Kwok)
+	\item[fancybox] Box outlines (Timothy Van Zandt)
+	\item[epsf] Postscript macros (Tomas Rokicki)
+	\item[rotate] PostScript text-rotation macros (Tomas Rokicki)
+\end{description}
+
+The \textit{lgrind} package for source code formatting
+(George Reilly, Jerry Leichter, Michael Piefel \textit{et al})
+as used to typeset the documentation, but is not part of LaTeXCAD itself.
+LaTeX-CAD naturally depends on Donald Knuth's \TeX\ and
+Leslie Lamport's \LaTeX\/, plus of course the \LaTeXe\ extensions. 
+Inspiration for LaTeX-CAD was taken from the emtex distribution's texcad. 
+LaTeX-CAD is written in Visual Basic 3.0 for Windows. 
+
+The author welcomes any constructive suggestions for improvement,
+at the email address cited.
+
+\end{document}
+

@@ -1,0 +1,104 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.797\textwidth,
+height=0.201\textwidth,
+at={(0.003\textwidth,0.305\textwidth)},
+scale only axis,
+xmin=0,
+xmax=1,
+xlabel={Probablity of Link Failure},
+xmajorgrids,
+ymin=0.6,
+ymax=1,
+ylabel={${\text{[det ratio]}}^{\text{1/80}}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={${\text{[det ratio]}}^{\text{1/80}}$},
+legend style={at={(0.123,0.572)},anchor=south west,legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=blue,solid,line width=2.0pt,mark=o,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.999999999999956\\
+0.2	0.999771566238347\\
+0.4	0.995287872831664\\
+0.6	0.968841821841771\\
+0.8	0.910308882231181\\
+1	0.676275176380441\\
+};
+\addlegendentry{Hybrid};
+
+\addplot [color=red,dashed,line width=3.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.866829635065381\\
+0.2	0.866692640522559\\
+0.4	0.865934569713759\\
+0.6	0.862701885524099\\
+0.8	0.847880201675063\\
+1	0.676275176380439\\
+};
+\addlegendentry{CI};
+
+\end{axis}
+
+\begin{axis}[%
+width=0.797\textwidth,
+height=0.189\textwidth,
+at={(0\textwidth,0\textwidth)},
+scale only axis,
+xmin=0,
+xmax=1,
+xlabel={Probability of Link Failure},
+xmajorgrids,
+ymin=0,
+ymax=1,
+ylabel={$\text{D}_{\text{B}}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title style={font=\bfseries},
+title={Bhattacharyya Distance},
+legend style={legend cell align=left,align=left,draw=white!15!black}
+]
+\addplot [color=blue,solid,line width=2.0pt,mark=o,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.999999999999997\\
+0.2	0.998241305932803\\
+0.4	0.946642608741733\\
+0.6	0.675157326702414\\
+0.8	0.330333074057324\\
+1	0.00850727925273209\\
+};
+\addlegendentry{Hybrid};
+
+\addplot [color=red,dashed,line width=3.0pt,mark=square,mark options={solid}]
+  table[row sep=crcr]{%
+0	0.352492150334324\\
+0.2	0.34740413328749\\
+0.4	0.348515441247033\\
+0.6	0.288859133858332\\
+0.8	0.196656297848703\\
+1	0.00850727925273234\\
+};
+\addlegendentry{CI};
+
+\addplot [color=green,dashdotted,line width=3.0pt]
+  table[row sep=crcr]{%
+0	1\\
+0.2	1\\
+0.2	0\\
+0.4	0\\
+0.6	0\\
+0.8	0\\
+1	0\\
+};
+\addlegendentry{Centralized};
+
+\end{axis}
+\end{tikzpicture}%

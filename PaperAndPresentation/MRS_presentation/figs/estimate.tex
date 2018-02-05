@@ -1,0 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you give
+% someone the link to this page, they can edit at the same
+% time. See the help menu above for more info. Enjoy!
+%
+% Note: you can export the pdf to see the result at full
+% resolution.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Linear regression
+% Author: Henri Menke
+\documentclass[tikz,border=10pt]{standalone}
+%%%<
+\usepackage{verbatim}
+%%%>
+\usepackage{pgfplots} 
+
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false} 
+\pgfmathdeclarefunction{gauss}{2}{%
+	\pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+\begin{comment}
+:Title: Linear regression
+:Tags: Foreach;Plotting;Plots;Mathematics
+:Author: Henri Menke
+:Slug: linear-regression
+
+This is an illustration of linear regression.
+
+This example was written by Henri Menke on TeXwelt.de.
+http://texwelt.de/wissen/fragen/4912/skizze-zur-illustration-linearer-regression
+An animated version can be found there in addition.
+\end{comment}
+\usetikzlibrary{arrows,intersections}
+\begin{document}
+
+\begin{tikzpicture}[scale=0.5]
+	\begin{axis}[every axis plot post/.append style={
+		mark=none,domain=-2:3,samples=50,smooth}, % All plots: from -2:2, 50 samples, smooth, no marks
+	axis x line=bottom, % no box around the plot, only x and y axis
+	axis y line=left, % the * suppresses the arrow tips
+	enlargelimits=upper,
+	yticklabels={,,},
+	xticklabels={,,}] % extend the axes a bit to the right and top
+	\addplot {gauss(0,0.5)};
+	\addplot {gauss(1,0.75)};
+	\addplot {gauss(0.75,0.25)};
+	\node at (axis cs:0, 0.7978845608) [pin=110: $observation$] {};
+	\node at (axis cs:1, 0.4978845608) [pin=0: $prediction$] {};
+	\node at (axis cs:0.75, 1.4978845608) [pin=190: $posterior$] {};
+	\end{axis}
+\end{tikzpicture}
+\end{document}

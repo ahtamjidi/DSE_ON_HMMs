@@ -1,0 +1,69 @@
+---------------------- latexcad.txt ----------------------------------
+
+Readme file for LaTeX-CAD Version 1.9
+John W Leis  
+March 98
+leis@usq.edu.au
+
+This package contains LaTeX-CAD, a drawing program running
+under Windows which produces drawing commands for LaTeX. 
+The resulting drawings may be incorporated into a .tex 
+source file, edited, and viewed using a DVI viewer such 
+as DVIWIN, or alternatively converted to PostScript using dvips.
+Please generate and print the file latexcad.ps (preferred)
+or latexcad.dvi for more extensive documentation, and a 
+list of changes since previous versions. The documentation file 
+latexcad.tex assumes A4 size paper - if using Letter paper, just 
+remove the  `a4paper' from the preamble. To typeset properly, the
+`lgrind' package for source code formatting is required. It's 
+available on CTAN. if you don't have it present, one example 
+(graph plotting) will be omitted, but the rest will compile 
+satisfactorily.
+If all this is too hard, just use the PostScript documentation!
+
+LaTeX-CAD contains some 2e-specific macros. However, it is not 
+yet fully 2e-compliant (one day.....)
+
+The distribution file is named latexcad__.zip, where `__' is
+the version number without the decimal point. When loading onto 
+a DOS system, this should be truncated to latexcad.zip to fit 
+within the normal 8+3 filename sizes.
+
+The package contains the following:
+latexcad.txt    - this file
+latexcad.exe    - executable file 
+latexcad.ps     - documentation in PostScript form
+vbrun300.dll    - dynamic link library
+cmdialog.vbx    - common dialog control
+commdlg.dll     - Windows common dialog
+latexcad.sty    - macro file
+latexcad.tex    - documentation file
+latexcad.hlp    - Windows help file
+lcadeg.lp       -   "      "
+gnuplot.lp      -   "      "
+linethic.lp     -   "      "
+ploteg.lg       -   "      "
+lgrind.sty      -   "      "
+fancybox.*      - box drawing macro package
+epic.*          - picture macro package
+eepic.*         - extended picture macro package
+epsf.*          - PostScript macro package
+rotate.*        - PostScript rotation package
+macros.tex      - Example usage 
+test.*          - support for above
+ploteg.bas      - example for data file plotting
+
+The documentation contains instructions on setting up the package
+and its operation. It requires LaTeX to compile and a dvi driver to
+print/preview. It is recommended to use a PostScript output device
+so as to be able to view the PostScript objects in the documentation.
+(Note, however, LaTeX-CAD will work without a PostScript output device,
+although shaded objects and rotated text may not be available).
+
+
+J Leis
+Toowoomba, Queensland, Australia
+March 98
+leis@usq.edu.au
+
+-----------------------------------------------------------------------

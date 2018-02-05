@@ -1,0 +1,418 @@
+% latexcad.sty - enhanced macros for LaTeX CAD program version 1.9
+% Updated 17 Dec 1995
+%         21/1/96, shadebox bug fix
+%         17/5/96 Automatic defaults for one/two column width
+%       for PostScript figures. PostScript width
+%       does *not* automatically go back to the default -
+%       must explicitly use \dfltpostscriptwidth
+%       16/7/96 - comments on end of *every* macro line, to 
+%       prevent unwanted side-effects.
+% J Leis leis@usq.edu.au
+
+\typeout{ latexcad.sty (V 1.9 Mar 98) - Support for LaTeXCAD drawing package. } 
+\typeout{ John Leis, leis@usq.edu.au Adapted from various CTAN sources. }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% User Macros for LaTeX, SliTeX %%%
+%================================================================
+% For LaTeX %
+
+% Placing LaTeX-CAD drawings (.lp)
+% \placedrawing{test.lp}{A Diagram.}{fig:test}
+% Multi-line format (note position of '%' ):
+% \placedrawing{test.lp}%
+%   {A Diagram.}%
+%   {fig:test}
+%
+% \drawingscale{0.4mm}  
+% \placedrawing[p]{test.lp}{A Diagram.}{fig:test}
+% \placedrawing*{test.lp}
+% \placedrawing*[p]{test.lp}
+
+% placing GnuPlots (.gp)
+% \placegraph{test.gp}{A test graph.}{fig:test}         
+% \placegraph[p]{test.gp}{A test graph.}{fig:test}      
+% \placegraph*{test.gp}                         
+% \placegraph*[p]{test.gp}                      
+
+% Placing encapsulated PostScript (.eps)
+% \placepostscript{test.eps}{A test picture.}{fig:test}
+% Multi-line format (note position of '%' ):
+% \placepostscript{test.eps}%
+%   {A test picture.}%
+%   {fig:test}
+%
+% \setpostscriptwidth{80mm}                     
+% \placepostscript[p]{test.eps}{A test picture.}{fig:test}
+% \placepostscript*{test.eps}                   
+% \placepostscript*[p]{test.eps}                        
+%================================================================
+
+%================================================================
+% For SliTeX %
+% Placing LaTeX-CAD drawings (.sp)
+% \drawingscale{0.4mm}
+% \placeslidedrawing{test.sp}{ A Slide Drawing }
+
+% Placing GnuPlots (.gp)
+% \placeslidegraph{test.gp}{ A Slide Graph }
+
+% Placing encapsulated PostScript
+% \setpostscriptwidth{40mm}
+% \placeslidepostscript{test.eps}{ A Slide PostScript }
+% \placeslidepostscript{test.eps}{ A Slide PostScript }
+
+%================================================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%================================================================
+% redefine \tenrm 
+% \tenrm is used in gnuplots, but is not defined
+% \it appears better
+\newcommand{\tenrm}{\it}%
+%================================================================
+
+
+%================================================================
+\newlength{\@drawingscale}%              % relative scaling on LaTeX-CAD drawings
+\newlength{\@dfltdrawingscale}%          % default for this
+
+% *** change here - defaults for one/two columns 17/5/96
+\if@twocolumn%
+	\setlength{\@dfltdrawingscale}{0.5mm}%   % default to 0.5mm
+\else%
+	\setlength{\@dfltdrawingscale}{1.0mm}%   % default to 1.0mm (full size on LaTeX-CAD)
+\fi%
+
+\setlength{\@drawingscale}{\@dfltdrawingscale}%
+
+% set the PostScript figure width back to the default
+\def\dfltdrawingscale{\@drawingscale=\@dfltdrawingscale}%
+%================================================================
+
+%================================================================
+% command to change scale
+% use: \drawingscale{0.5mm} 
+\def\drawingscale#1{\@drawingscale=#1}%
+%================================================================
+
+%================================================================
+\newlength{\@pswidth}%           % width of PostScript figure
+\newlength{\@dfltpswidth}%       % default for this
+
+% *** change here - defaults for one/two columns 17/5/96
+\if@twocolumn%
+	\setlength{\@dfltpswidth}{80mm}%        % default to 80mm for A4 paper
+\else%
+	\setlength{\@dfltpswidth}{160mm}%        % default to 160mm for A4 paper
+\fi%
+	
+\setlength{\@pswidth}{\@dfltpswidth}%
+%================================================================
+
+%================================================================
+% command to size a PostScript figure's width
+% use: \setpostscriptwidth{80mm} 
+\def\setpostscriptwidth#1{\@pswidth=#1}%
+
+% set the PostScript figure width back to the default
+\def\dfltpostscriptwidth{\@pswidth=\@dfltpswidth}%
+%================================================================
+
+
+
+%================================================================
+% Place a LaTeXCAD drawing in a source file
+% \placedrawing*[placement]{ filename }{ caption string }{ crossref-label }
+% `*' - the last two arguments are missing (ie no `Figure' caption & label )
+% [placement] is optional (default is tbp, see Lamport p 176)
+%
+% Examples:-
+% \placedrawing{test.lp}{A Test Picture}{fig:testa}     % normal usage
+% \drawingscale{0.4mm}                                  % for next drawing only!
+% \placedrawing[p]{test.lp}{thecaption}{fig:testb}      % on a page of floats
+% \placedrawing*{test.lp}                               % no `Figure' label
+% \placedrawing*[p]{test.lp}                            % as above, but place on a page of floats
+
+
+% `*' as first arg - no `label' follows later
+\def\placedrawing{\@ifstar{\@dwgnl}{\@dwgl}}%
+
+% with label
+% see if optional [placement] argument present 
+\def\@dwgl{ \@ifnextchar[{\@ddwgl}{\@ddwgl[tbp]} }%
+
+% no label macro - default selection
+\def\@dwgnl{ \@ifnextchar[{\@ddwgnl}{\@ddwgnl[tbp]} }%
+
+% the final macros
+\def\@ddwgl[#1]#2#3#4%   % with label
+{%
+	% WITH LABEL,placement=#1,file=#2,caption=#3,label=#4
+	\setlength{\unitlength}{\@drawingscale}%
+	\begin{figure}[#1]%
+		\begin{center} \input #2 \end{center}%
+		\caption{#3}\label{#4}%          % NOTE! \caption MUST come before \label!
+	\end{figure}%
+	%%%%%%%%%%\setlength{\@drawingscale}{\@dfltdrawingscale}%  % back to default
+}%
+
+\def\@ddwgnl[#1]#2%      % no label 
+{%
+	% NO LABEL,placement=#1,file=#2
+	\setlength{\unitlength}{\@drawingscale}%
+	\begin{figure}[#1]%       
+		\begin{center} \input #2 \end{center}%
+	\end{figure}%
+	%%%%%%%%%%%\setlength{\@drawingscale}{\@dfltdrawingscale}%  % back to default
+}%
+%================================================================
+
+
+%================================================================
+% Place a GnuPlot graph (with eepic term) in a source file
+% \placegraph*[placement]{ filename }{ caption string }{ crossref-label }
+% `*' - the last two arguments are missing (ie no `Figure' caption & label )
+% [placement] is optional (default is tbp, see Lamport p 176)
+%
+% Examples:-
+% \placegraph{test.gp}{A Test Graph}{fig:testa}         % normal usage
+% \placegraph[p]{test.gp}{thecaption}{fig:testb}        % on a page of floats
+% \placegraph*{test.gp}                                 % no `Figure' label
+% \placegraph*[p]{test.gp}                              % as above, but place on a page of floats
+
+% `*' as first arg - no `label' follows later
+\def\placegraph{\@ifstar{\@grnl}{\@grl}}%
+
+% with label
+% see if optional [placement] argument present 
+\def\@grl{ \@ifnextchar[{\@dgrl}{\@dgrl[tbp]} }%
+
+% no label macro - default selection
+\def\@grnl{ \@ifnextchar[{\@dgrnl}{\@dgrnl[tbp]} }%
+
+% the final macros
+\def\@dgrl[#1]#2#3#4%    % with label
+{%
+	% WITH LABEL,placement=#1,file=#2,caption=#3,label=#4
+	\begin{figure}[#1]%
+		\begin{center} \input #2 \end{center}%
+		\caption{#3} \label{#4}%
+	\end{figure}%            
+	%%%%%%%%%%\setlength{\@drawingscale}{1.0mm}%       % back to default
+}%
+
+\def\@dgrnl[#1]#2%       % no label 
+{%
+	% NO LABEL,placement=#1,file=#2
+	\begin{figure}[#1]%
+		\begin{center} \input #2 \end{center}%
+	\end{figure}%
+	%%%%%%%%%%\setlength{\@drawingscale}{1.0mm}%       % back to default
+}%
+%================================================================
+
+
+
+%================================================================
+% Place a PostScript figure in a source file
+% \placepostscript*[placement]{ filename }{ caption string }{ crossref-label }
+% `*' - the last two arguments are missing (ie no `Figure' caption & label )
+% [placement] is optional (default is tbp, see Lamport p 176)
+%
+% Examples:-
+% \placepostscript{test.eps}{A Test Picture}{fig:testa} % normal usage
+% \setpostscriptwidth{80mm}                             % for next drawing only!
+% \placepostscript[p]{test.eps}{thecaption}{fig:testb}  % on a page of floats
+% \placepostscript*{test.eps}                           % no `Figure' label
+% \placepostscript*[p]{test.eps}                        % as above, but place on a page of floats
+
+
+% `*' as first arg - no `label' follows later
+\def\placepostscript{\@ifstar{\@psnl}{\@psl}}%
+
+% with label
+% see if optional [placement] argument present 
+\def\@psl{ \@ifnextchar[{\@dpsl}{\@dpsl[tbp]} }%
+
+% no label macro - default selection
+\def\@psnl{ \@ifnextchar[{\@dpsnl}{\@dpsnl[tbp]} }%
+
+% the final macros
+% See Antoni Diller, "LaTeX Line by Line", 1993
+\def\@dpsl[#1]#2#3#4%    % with label
+{%
+	% WITH LABEL,placement=#1,file=#2,caption=#3,label=#4
+	\begin{figure}[#1]%
+	\begin{center}%
+		\leavevmode%
+		\hbox{ \epsfxsize=\@pswidth \epsffile{#2} }%
+	\end{center}%
+	\caption{#3} \label{#4}%
+	\end{figure}%
+	%%%%\setlength{\@pswidth}{\@dfltpswidth}%    % back to default
+}%
+
+\def\@dpsnl[#1]#2%       % no label 
+{%
+	% NO LABEL,placement=#1,file=#2
+	\begin{figure}[#1]%
+	\begin{center}%
+		\leavevmode%
+		\hbox{ \epsfxsize=\@pswidth \epsffile{#2} }%
+	\end{center}%
+	\end{figure}%
+	%%%%%%%\setlength{\@pswidth}{\@dfltpswidth}%    % back to default
+}%
+%================================================================
+
+%================================================================
+% Place a LaTeX-CAD drawing on a slide
+% \placeslidedrawing{ filename }{ title }
+% Note that the title appears above the picture.
+% Example:
+% \drawingscale{0.4mm}
+% \placeslidedrawing{test.lp}{ A Slide Drawing }
+\def\placeslidedrawing#1#2%
+{%
+	\setlength{\unitlength}{\@drawingscale}%
+	\begin{center} \mbox{#2} \end{center}%
+	\vspace{-5mm}%
+	\begin{center} \input #1 \end{center}%
+	%%%%%%%\setlength{\@drawingscale}{\@dfltdrawingscale}%  % back to default
+}%
+%================================================================
+
+
+%================================================================
+% Place a GnuPlot graph on a slide
+% Use: \placeslidegraph{ filename }{ title }
+% Note that the title appears above the picture.
+% Example:
+% \placeslidegraph{test.gp}{ A Slide Graph }
+\def\placeslidegraph#1#2%
+{%
+	\begin{center} \mbox{#2} \end{center}%
+	\vspace{-10mm}%
+	\begin{center} \input #1 \end{center}%
+	%%%%%%%\setlength{\@drawingscale}{\@dfltdrawingscale}%  % back to default
+}%
+%================================================================
+
+%================================================================
+% Place a PostScript graph on a slide
+% Use: \placeslidepostscript{ filename }{ title }
+% Note that the title appears above the picture.
+% Example:
+% \placeslidepostscript{test.eps}{ A Slide PostScript }
+\def\placeslidepostscript#1#2%
+{%
+	\begin{center} \mbox{#2} \end{center}%
+	\vspace{-10mm}%
+	\begin{center}%
+		\leavevmode%
+		\hbox{ \hspace{-15mm} \epsfxsize=\@pswidth \epsffile{#1} }%
+	\end{center}%
+	%%%%%%%%%\setlength{\@pswidth}{\@dfltpswidth}%    % back to default
+}%
+%================================================================
+
+
+%================================================================
+% macros for LaTeX-CAD program
+\newcommand{\drawcenteredtext}[3]{\put(#1,#2){\makebox(0,0){#3}}}%
+\newcommand{\drawlefttext}[3]{\put(#1,#2){\makebox(0,0)[l]{#3}}}%
+\newcommand{\drawrighttext}[3]{\put(#1,#2){\makebox(0,0)[r]{#3}}}%
+\newcommand{\drawframedtext}[3]{\put(#1,#2){\makebox(0,0)[c]{\framebox{#3}}}}%
+
+\newcommand{\drawuptext}[3]{\put(#1,#2){\makebox(0,0){\rotate[l]{#3}}}}%
+\newcommand{\drawdowntext}[3]{\put(#1,#2){\makebox(0,0){\rotate[r]{#3}}}}%
+
+\newcommand{\drawstackedtext}[3]{\put(#1,#2){\makebox(0,0){\shortstack{#3}}}}%
+
+\newcommand{\drawframebox}[5]{%
+	\put(#1,#2){\makebox(0,0){\framebox(#3,#4)[cc]{#5}}}}%
+
+\newcommand{\drawdashbox}[5]{%
+	\put(#1,#2){\makebox(0,0){\dashbox{1}(#3,#4)[cc]{#5}}}}%
+
+\newcommand{\drawoval}[5]{%
+	\put(#1,#2){\oval(#3,#4) \makebox(0,0)[cc]{#5}}}%
+
+\newcommand{\drawcircle}[4]{%
+	\put(#1,#2){\circle{#3}} \put(#1,#2){\makebox(0,0)[cc]{#4}}}%
+
+\newcommand{\drawshadedcircle}[5]{%
+	\special{sh #5}\put(#1,#2){\circle{#3}} \put(#1,#2){\makebox(0,0)[cc]{#4}}}%
+
+\newcommand{\drawellipse}[5]{%
+	\put(#1,#2){\ellipse{#3}{#4} \makebox(0,0)[cc]{#5}}}%
+
+\newcommand{\drawpath}[4]{\path(#1,#2)(#3,#4)}%
+\newcommand{\drawdotline}[4]{\dottedline[.]{1}(#1,#2)(#3,#4)}%
+\newcommand{\drawdashline}[4]{\dashline{1}(#1,#2)(#3,#4)}%
+\newcommand{\drawvector}[5]{\put(#1,#2){\vector(#4,#5){#3}}}%
+
+\newcommand{\drawshadowbox}[3]{\put(#1,#2){\makebox(0,0){\shadowbox{#3}}}}%
+\newcommand{\drawdoublebox}[3]{\put(#1,#2){\makebox(0,0){\doublebox{#3}}}}%
+\newcommand{\drawovalbox}[3]{\put(#1,#2){\makebox(0,0){\ovalbox{#3}}}}%
+\newcommand{\drawOvalbox}[3]{\put(#1,#2){\makebox(0,0){\Ovalbox{#3}}}}%
+\newcommand{\drawdot}[2]{\put(#1,#2){\circle*{0.5}}}%
+\newcommand{\drawthickdot}[2]{\put(#1,#2){\circle*{1}}}%
+\newcommand{\drawhollowdot}[2]{\put(#1,#2){\circle{1}}}%
+
+\newcommand{\drawleftbrace}[3]%
+{\drawcenteredtext{#1}{#2}{$\left\{ \rule[0mm]{0mm}{#3mm} \right.$}}%
+
+\newcommand{\drawrightbrace}[3]%
+{\drawcenteredtext{#1}{#2}{$\left\} \rule[0mm]{0mm}{#3mm} \right.$}}%
+
+\newcommand{\drawoverbrace}[3]%
+{\drawcenteredtext{#1}{#2}{$\overbrace{\rule[0mm]{#3mm}{0mm}}$}}%
+
+\newcommand{\drawunderbrace}[3]%
+{\drawcenteredtext{#1}{#2}{$\underbrace{\rule[0mm]{#3mm}{0mm}}$}}%
+
+\newcommand{\drawarc}[5]%
+{\put(#1,#2){\arc{#3}{#4}{#5}}}%
+
+\newcommand{\drawshadebox}[8]%
+{%
+	% modified 17/7/96 - comment at end of lines
+	\makebox(0,0)[cc]{\special{sh #8}\path(#1,#4)(#3,#4)(#3,#6)(#1,#6)(#1,#4)}%
+	\put(#2,#5){\makebox(0,0){\makebox(0,0)[cc]{#7}}}%
+}
+
+\newcommand{\drawpostscript}[5]%
+{%
+	\put(#1,#2){\makebox(0,0)[cc]{\epsfxsize=#3mm\epsfysize=#4mm \epsffile{#5}}}%
+}%
+
+
+% \drawshadowframebox{x}{y}{w}{h}{text}
+% example:
+% \drawshadowframebox{80}{40}{100}{40}{this is a shadowframebox}
+%
+\newcommand{\drawshadowframebox}[5]%
+{%                                        
+	\put(#1,#2){\makebox(0,0){\shadowbox{\rule{0mm}{#4mm}\rule{#3mm}{0mm}}}}%
+	\put(#1,#2){\makebox(0,0){#5}}%
+}%
+
+%
+% End of LaTeX-CAD macros
+%================================================================
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% picture macros from various sources
+% for some reason, the order of these \input's is
+% crucial (generates missing \begin{document} errors)
+\input rotate.sty
+\input fancybox.sty
+\input epic.sty
+\input eepic.sty
+\input epsf.sty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,88 @@
+\begin{thebibliography}{}
+
+\bibitem[Ajgl and {\v{S}}imandl, 2015]{ajgl2015design}
+Ajgl, J. and {\v{S}}imandl, M. (2015).
+\newblock Design of a robust fusion of probability densities.
+\newblock In {\em American Control Conference (ACC), 2015}, pages 4204--4209.
+  IEEE.
+
+\bibitem[Bailey et~al., 2012]{bailey2012conservative}
+Bailey, T., Julier, S., and Agamennoni, G. (2012).
+\newblock On conservative fusion of information with unknown non-gaussian
+  dependence.
+\newblock In {\em Information Fusion (FUSION), 2012 15th International
+  Conference on}, pages 1876--1883. IEEE.
+
+\bibitem[Battistelli et~al., 2014]{battistelli2014parallel}
+Battistelli, G., Chisci, L., and Fantacci, C. (2014).
+\newblock Parallel consensus on likelihoods and priors for networked nonlinear
+  filtering.
+\newblock {\em IEEE Signal Processing Letters}, 21(7):787--791.
+
+\bibitem[Bhattacharyya, 1946]{bhattacharyya1946measure}
+Bhattacharyya, A. (1946).
+\newblock On a measure of divergence between two multinomial populations.
+\newblock {\em Sankhy{\=a}: The Indian Journal of Statistics}, pages 401--406.
+
+\bibitem[Cattivelli and Sayed, 2010]{cattivelli2010diffusion}
+Cattivelli, F.~S. and Sayed, A.~H. (2010).
+\newblock Diffusion strategies for distributed kalman filtering and smoothing.
+\newblock {\em IEEE Transactions on automatic control}, 55(9):2069--2084.
+
+\bibitem[Durrant-Whyte et~al., 2001]{durrant2001data}
+Durrant-Whyte, H., Stevens, M., and Nettleton, E. (2001).
+\newblock Data fusion in decentralised sensing networks.
+\newblock In {\em Proceedings of the 4th International Conference on
+  Information Fusion}, pages 302--307.
+
+\bibitem[Hu et~al., 2012]{hu2012diffusion}
+Hu, J., Xie, L., and Zhang, C. (2012).
+\newblock Diffusion kalman filtering based on covariance intersection.
+\newblock {\em Signal Processing, IEEE Transactions on}, 60(2):891--902.
+
+\bibitem[Mao and Yang, 2014]{lin_dist_part_filter_2014}
+Mao, L. and Yang, D.~W. (2014).
+\newblock Distributed information fusion particle filter.
+\newblock In {\em Intelligent Human-Machine Systems and Cybernetics (IHMSC),
+  2014 Sixth International Conference on}, volume~1, pages 194--197.
+
+\bibitem[Olfati-Saber, 2005]{olfati2005distributed}
+Olfati-Saber, R. (2005).
+\newblock Distributed kalman filter with embedded consensus filters.
+\newblock In {\em Decision and Control, 2005 and 2005 European Control
+  Conference. CDC-ECC'05. 44th IEEE Conference on}, pages 8179--8184. IEEE.
+
+\bibitem[Simonetto et~al., 2010]{5509143}
+Simonetto, A., Keviczky, T., and Babuška, R. (2010).
+\newblock Distributed nonlinear estimation for robot localization using
+  weighted consensus.
+\newblock In {\em 2010 IEEE International Conference on Robotics and
+  Automation}, pages 3026--3031.
+
+\bibitem[Tamjidi et~al., 2016]{tamjidi2016unifying}
+Tamjidi, A., Chakravorty, S., and Shell, D. (2016).
+\newblock Unifying consensus and covariance intersection for decentralized
+  state estimation.
+\newblock In {\em Intelligent Robots and Systems (IROS), 2016 IEEE/RSJ
+  International Conference on}, pages 125--130. IEEE.
+
+\bibitem[Wang and Li, 2012]{wang_distr_CI}
+Wang, Y. and Li, X. (2012).
+\newblock Distributed estimation fusion with unavailable cross-correlation.
+\newblock {\em Aerospace and Electronic Systems, IEEE Transactions on},
+  48(1):259--278.
+
+\bibitem[Xiao and Boyd, 2003]{boyd_fastest_2003}
+Xiao, L. and Boyd, S. (2003).
+\newblock Fast linear iterations for distributed averaging.
+\newblock In {\em Decision and Control, 2003. Proceedings. 42nd IEEE Conference
+  on}, volume~5, pages 4997--5002 Vol.5.
+
+\bibitem[Xiao et~al., 2005]{xiao2005scheme}
+Xiao, L., Boyd, S., and Lall, S. (2005).
+\newblock A scheme for robust distributed sensor fusion based on average
+  consensus.
+\newblock In {\em Proceedings of the 4th international symposium on Information
+  processing in sensor networks}, page~9. IEEE Press.
+
+\end{thebibliography}

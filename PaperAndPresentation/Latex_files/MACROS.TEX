@@ -1,0 +1,63 @@
+% macros.tex
+% Test latexcad.sty macros.
+% J Leis
+
+\documentclass{article}
+
+\usepackage{a4page}
+\usepackage{latexcad}
+
+\begin{document}
+
+%================================================================
+% For LaTeX %
+
+% Placing LaTeX-CAD drawings (.lp)
+ \placedrawing{test.lp}{A Diagram.}{fig:testa}
+ \drawingscale{1.0mm}   
+ \placedrawing[p]{test.lp}{A Diagram.}{fig:testb}
+ \placedrawing*{test.lp}
+ \placedrawing*[p]{test.lp}
+
+% placing GnuPlots (.gp). Remember to use eepic terminal output.
+ \placegraph{test.gp}{A test graph.}{fig:testc}          
+ \placegraph[p]{test.gp}{A test graph.}{fig:testd}       
+ \placegraph*{test.gp}                          
+ \placegraph*[p]{test.gp}                       
+
+% Placing encapsulated PostScript (.eps)
+ \placepostscript{test.eps}{A test picture.}{fig:teste}
+ \setpostscriptwidth{120mm}                      
+ \placepostscript[p]{test.eps}{A test picture.}{fig:testf}
+ \placepostscript*{test.eps}                    
+ \placepostscript*[p]{test.eps}                 
+ 
+% placing the drawing directly, without using latexcad macros
+%------------- include LaTeX-CAD drawing test.lp ------------------------
+\setlength{\unitlength}{1.0mm}  % use 1.0mm default scale
+\begin{figure}
+    \centering
+    \input{test.lp}             % output file from latexcad
+    \caption[short caption here]{long caption is placed here}
+    \label{fig:test}           % NOTE! \caption MUST come before \label!
+\end{figure}
+%------------------------------------------------------------------------
+
+%================================================================
+
+%================================================================
+% For SliTeX %
+% Placing LaTeX-CAD drawings (.sp)
+% \drawingscale{1.0mm}
+% \placeslidedrawing{test.sp}{ A Slide Drawing }
+
+% Placing GnuPlots (.gp)
+% \placeslidegraph{test.gp}{ A Slide Graph }
+
+% Placing encapsulated PostScript
+% \setpostscriptwidth{120mm}
+% \placeslidepostscript{test.eps}{ A Slide PostScript }
+
+%================================================================
+
+\end{document}

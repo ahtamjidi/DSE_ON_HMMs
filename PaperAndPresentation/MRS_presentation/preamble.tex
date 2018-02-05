@@ -1,0 +1,95 @@
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{nomencl}
+\usepackage{balance}
+\usepackage{todonotes}
+\usepackage[author={Max Schlepzig}]{pdfcomment}
+
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\makenomenclature
+\usepackage{xifthen}
+\usepackage{hyperref}
+\usepackage{xparse}
+%\newcommand{\vect}{\bf}
+\newcommand{\vect}[1]{{\mathbf{#1}}}
+\newcommand{\matr}{\bf}
+\newtheorem{prop}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\usepackage{pgfplots} 
+\newlength\figureheight 
+\newlength\figurewidth
+\pgfplotsset{compat=newest} 
+\pgfplotsset{plot coordinates/math parser=false} 
+%\renewcommand{\footnotesize}{\footnotesize}
+\renewcommand{\footnotesize}{\fontsize{7.5pt}{9pt}\selectfont}
+%\usepackage{enumitem}
+
+\newcommand{\tl}[1]{{\color{orange} - Fix Language: #1 - \ }}  % Typo or 
+%Language
+%\newcommand{\axx}[1]{{\color{blue} AT: #1  \ }}  % AmirHossein's comments
+%\newcommand{\dxx}[1]{{\color{green} DS: #1  \ }}  % Dylan's comments
+%\newcommand{\rxx}[1]{{\color{orange} RO: #1  \ }}  % Reza's comments
+%\newcommand{\sxx}[1]{{\color{red} SC: #1  \ }}  % Suman's comments
+%\newcommand{\nxx}[1]{#1}  % approved
+
+\newcommand{\axx}[1]{{\color{blue} #1  \ }}  % AmirHossein's comments
+\newcommand{\dxx}[1]{{\color{green} #1  \ }}  % Dylan's comments
+\newcommand{\rxx}[1]{{\color{orange} #1  \ }}  % Reza's comments
+\newcommand{\sxx}[1]{{\color{red} #1  \ }}  % Suman's comments
+\newcommand{\nxx}[1]{#1}  % approved
+
+
+\newcommand{\bxx}[1]{{\color{blue} - T: #1 - \ }}  % AmirHossein's comments
+\newcommand{\XX}[3][2]{\mathbf{X}_{\tiny #2}^{\tiny #3}}
+\newcommand{\pr}{\textrm{p}}
+\newcommand{\pp}[3][2]{\pr(x #2 | #3)}
+
+%\newcommand{\bIn}{\boldsymbol{I}_{\boldsymbol{n}}}
+%\newcommand{\bIa}{\boldsymbol{I}_{\boldsymbol{a}}}
+%\newcommand{\bIk}{\boldsymbol{I}_{\boldsymbol{k}}}
+%\newcommand{\bIkk}{\boldsymbol{I}_{\boldsymbol{k-1}}}
+
+\newcommand{\bIn}{\boldsymbol{I}_{{n}}}
+\newcommand{\bIa}{\boldsymbol{I}_{{a}}}
+\newcommand{\bIk}{\boldsymbol{I}_{{k}}}
+\newcommand{\bIkk}{\boldsymbol{I}_{{k-1}}}
+\newcommand{\bIs}[1]{\boldsymbol{I}_{#1}}  % Suman's comments
+\newcommand{\xx}[3][2]{\mathbf{x}_{ #2}^{ #3}}
+\newcommand{\zz}[3][2]{\mathbf{z}_{ #2}^{ #3}}
+\newcommand{\ZZ}[3][2]{\mathbf{Z}_{ #2}^{ #3}}
+\newcommand{\ZZh}[3][2]{\mathbf{\hat{z}}_{ #2}^{ #3}}
+%\newcommand{\yy}[3][2]{\mathpzc{y}_{\tiny #2}^{\tiny #3}}
+%\newcommand{\YY}[3][2]{\mathpzc{Y}_{\tiny #2}^{\tiny #3}}
+
+\newcommand{\yy}[3][2]{\psi^{\tiny #3}({\tiny #2})}
+\newcommand{\YY}[3][2]{\phi^{\tiny #3}({\tiny #2})}
+\newcommand{\suf}[1]{\textsc{\tiny #1}}  % Suman's comments
+
+\newcommand{\ii}[3][2]{\overline{\delta \mathpzc{i}}_{\tiny {#2}}^{\tiny {#3}}}
+\newcommand{\II}[3][2]{\overline{\delta \mathpzc{I}}_{\tiny {#2}}^{\tiny {#3}}}
+\newcommand{\psx}{p_*(\vect{x})}
+\newcommand{\pcfx}{p_{\textsc{\tiny CF}}(\vect{x})}
+\newcommand{\phybx}{p_{\textsc{\tiny HYB}}(\vect{x})}
+\newcommand{\pixz}{\tilde{p}^i(\xx[]{k}{}\vert \vect{Z}_{k})}
+\newcommand{\pixzm}{\tilde{p}^i(\xx[]{k}{}\vert \vect{Z}_{k-1})}
+\newcommand{\pzix}{\tilde{p}^i( \vect{z}_{k} \vert \xx[]{k}{})}
+\newcommand{ \pcf}{\frac{1}{\eta_{\textsuperscript{CF}}}\prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{})^{\omega_i} \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\omega_i}}
+\newcommand{ \phyb}{\frac{1}{\eta_{\textsc{\tiny HYB}}}\prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{}) \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\bar{\omega}_i} }
+\newcommand{ \pstar}{\frac{1}{\eta_*} \{ \prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{}) \} \pr(\xx[]{k}{}|\vect{Z}_{k-1})}
+ 
+\newcommand{ \npcf}{\prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{})^{\omega_i} \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\omega_i}}
+\newcommand{ \nphyb}{\prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{}) \prod_{i=1}^{N} \tilde{p}^i(\vect{x}_{k} | \vect{Z}_{k-1})^{\bar{\omega}_i} }
+\newcommand{ \npstar}{ \{ \prod_{i=1}^{N} \pr(\vect{z}_{k}^i | \xx[]{k}{}) \} \pr(\xx[]{k}{}|\vect{Z}_{k-1})}
+ 
+\DeclareDocumentCommand{\ais}{m m m  }{{#1}_{#2}^{#3}}
+\DeclareDocumentCommand{\bis}{m m m  }{{#1}_{{\tiny #2}}^{{\tiny #3}}}
+\DeclareDocumentCommand{\cis}{m m m  }{{#1}_{{\tiny #2}}^{{\tiny {#3}}}}
+\newcommand{\ti}[1]{\textsc{\tiny #1}}
+\newcommand{\lrp}[1]{\left( #1 \right) }

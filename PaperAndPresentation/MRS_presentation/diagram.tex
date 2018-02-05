@@ -1,0 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you give
+% someone the link to this page, they can edit at the same
+% time. See the help menu above for more info. Enjoy!
+%
+% Note: you can export the pdf to see the result at full
+% resolution.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Linear regression
+% Author: Henri Menke
+\documentclass[tikz,border=10pt]{standalone}
+%%%<
+\usepackage{verbatim}
+%%%>
+\begin{comment}
+:Title: Linear regression
+:Tags: Foreach;Plotting;Plots;Mathematics
+:Author: Henri Menke
+:Slug: linear-regression
+
+This is an illustration of linear regression.
+
+This example was written by Henri Menke on TeXwelt.de.
+http://texwelt.de/wissen/fragen/4912/skizze-zur-illustration-linearer-regression
+An animated version can be found there in addition.
+\end{comment}
+\usetikzlibrary{arrows,intersections}
+\begin{document}
+	\begin{tikzpicture}[
+	thick,
+	>=stealth',
+	dot/.style = {
+		draw,
+		fill = white,
+		circle,
+		inner sep = 0pt,
+		minimum size = 4pt
+	}
+	]
+	\coordinate (O) at (0,0);
+	\draw[->] (-0.3,0) -- (8,0) coordinate[label = {below:$p_{\textit{link failure}}$}] (xmax);
+	\draw[->] (0,-0.3) -- (0,5) coordinate[label = {above:$\textit{performance measure}$}] (ymax);
+	\path[name path=x] (0.3,0.5) -- (6.7,4.7);
+	\path[name path=y] plot[smooth] coordinates {(-0.3,2) (2,1.5) (4,2.8) (6,5)};
+	\scope[name intersections = {of = x and y, name = i}]
+	\fill[gray!20] (i-1) -- (i-2 |- i-1) -- (i-2) -- cycle;
+	\draw      (0.3,0.5) -- (6.7,4.7) node[pos=0.8, below right] {Sekante};
+%	\draw[red] plot[smooth] coordinates {(-0.3,2) (2,1.5) (4,2.8) (6,5)};
+	\draw[red] plot[smooth] coordinates {(0,1) (0.2, 1) (0.3, 0.95) (0.4, 0.85) (0.5, 0.75) (0.6,0.50) (0.7,0.40) (0.8,0.20) (0.9,0.10) (1,0)};
+%	\draw[red] plot[smooth] coordinates {(0,1) (0.25, 0.85) (0.5, 0.65) (1,0)};
+%	\draw[red] plot[smooth] coordinates {(0,1) (0.25, 0.85) (0.5, 0.65) (1,0)};
+%			
+	\draw (i-1) node[dot, label = {above:$P$}] (i-1) {} -- node[left]
+	{$f(x_0)$} (i-1 |- O) node[dot, label = {below:$x_0$}] {};
+	\path (i-2) node[dot, label = {above:$Q$}] (i-2) {} -- (i-2 |- i-1)
+	node[dot] (i-12) {};
+	\draw           (i-12) -- (i-12 |- O) node[dot,
+	label = {below:$x_0 + \varepsilon$}] {};
+	\draw[blue, <->] (i-2) -- node[right] {$f(x_0 + \varepsilon) - f(x_0)$}
+	(i-12);
+	\draw[blue, <->] (i-1) -- node[below] {$\varepsilon$} (i-12);
+	\path       (i-1 |- O) -- node[below] {$\varepsilon$} (i-2 |- O);
+	\draw[gray]      (i-2) -- (i-2 -| xmax);
+	\draw[gray, <->] ([xshift = -0.5cm]i-2 -| xmax) -- node[fill = white]
+	{$f(x_0 + \varepsilon)$}  ([xshift = -0.5cm]xmax);
+	\endscope
+	\end{tikzpicture}
+\end{document}

@@ -1,0 +1,53 @@
+@article{McGeer01041990,
+  author = {McGeer, Tad}, 
+  title = {\href{http://ijr.sagepub.com/content/9/2/62.abstract}{Passive Dynamic Walking}}, 
+  volume = {9}, 
+  number = {2}, 
+  pages = {62-82}, 
+  year = {1990}, 
+  doi = {10.1177/027836499000900206}, 
+  URL = {http://ijr.sagepub.com/content/9/2/62.abstract}, 
+  eprint = {http://ijr.sagepub.com/content/9/2/62.full.pdf+html}, 
+  journal = {The International Journal of Robotics Research}
+}
+
+
+
+@ARTICLE{Zhang_ttradeoff, 
+author={Haotian Zhang and Moura, J.M.F. and Krogh, B.}, 
+journal={Signal Processing, IEEE Transactions on}, 
+title={Dynamic Field Estimation Using Wireless Sensor Networks: Tradeoffs Between Estimation Error and Communication Cost}, 
+year={2009}, 
+volume={57}, 
+number={6}, 
+pages={2383-2395}, 
+keywords={Kalman filters;mean square error methods;wireless sensor networks;Kalman-Bucy filter;Pareto optimality;communication cost;dynamic field estimation;lumped-parameter model;root mean squared estimation error;wireless sensor networks;Communication cost;Kalman–Bucy filter;Pareto optimality;estimation error;field estimation;tradeoffs;wireless sensor networks}, 
+doi={10.1109/TSP.2009.2015110}, 
+ISSN={1053-587X}, 
+month={June},}
+
+@article{kalman1960new,
+  title={A new approach to linear filtering and prediction problems},
+  author={Kalman, R.E.},
+  journal={Journal of Basic Engineering},
+  volume={82},
+  number={1},
+  pages={35--45},
+  year={1960},
+  publisher={Citeseer}
+}
+
+@ARTICLE{mehra_cov_in, 
+author={Lingji Chen and Arambel, P.O. and Mehra, R.K.}, 
+journal={Automatic Control, IEEE Transactions on}, 
+title={Estimation under unknown correlation: covariance intersection revisited}, 
+year={2002}, 
+volume={47}, 
+number={11}, 
+pages={1879-1882}, 
+keywords={covariance matrices;estimation theory;consistent estimate;covariance intersection;covariance matrix;family-optimal estimate;global optimal solution;minimal trace;unknown correlation;Covariance matrix;Estimation error;Filtering;Kalman filters;Measurement errors;Network topology;Recursive estimation;Space technology;State estimation;Upper bound}, 
+doi={10.1109/TAC.2002.804475}, 
+ISSN={0018-9286}, 
+month={Nov},}
+
+

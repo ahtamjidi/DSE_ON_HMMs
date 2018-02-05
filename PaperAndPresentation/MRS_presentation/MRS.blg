@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: MRS.aux
+The style file: apalike.bst
+Database file #1: RSS_2017_2.bib
+I was expecting a `,' or a `}'---line 6721 of file RSS_2017_2.bib
+ : 
+ : @INPROCEEDINGS{capitan2012decaucpomdp,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 7116 of file RSS_2017_2.bib
+ : @inproceedings{ajgl2015design
+ :                              ,
+I'm skipping whatever remains of this entry
+You've used 14 entries,
+            1935 wiz_defined-function locations,
+            778 strings with 9700 characters,
+and the built_in function-call counts, 7078 in all, are:
+= -- 743
+> -- 205
+< -- 19
++ -- 68
+- -- 66
+* -- 530
+:= -- 1077
+add.period$ -- 47
+call.type$ -- 14
+change.case$ -- 103
+chr.to.int$ -- 14
+cite$ -- 14
+duplicate$ -- 326
+empty$ -- 546
+format.name$ -- 90
+if$ -- 1533
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 14
+newline$ -- 73
+num.names$ -- 42
+pop$ -- 118
+preamble$ -- 1
+purify$ -- 103
+quote$ -- 0
+skip$ -- 266
+stack$ -- 0
+substring$ -- 608
+swap$ -- 110
+text.length$ -- 12
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 84
+warning$ -- 0
+while$ -- 60
+width$ -- 0
+write$ -- 191
+(There were 2 error messages)

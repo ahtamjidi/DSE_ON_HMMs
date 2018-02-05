@@ -1,0 +1,169 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{durrant2001data}
+H.~Durrant-Whyte, M.~Stevens, and E.~Nettleton, ``Data fusion in decentralised
+  sensing networks,'' in \emph{Proceedings of the 4th International Conference
+  on Information Fusion}, 2001, pp. 302--307.
+
+\bibitem{campbell2016distributed}
+M.~E. Campbell and N.~R. Ahmed, ``Distributed data fusion: Neighbors, rumors,
+  and the art of collective knowledge,'' \emph{IEEE Control Systems}, vol.~36,
+  no.~4, pp. 83--109, 2016.
+
+\bibitem{boem2015decentralized}
+F.~Boem, L.~Sabattini, and C.~Secchi, ``Decentralized state estimation for
+  heterogeneous multi-agent systems,'' in \emph{Decision and Control (CDC),
+  2015 IEEE 54th Annual Conference on}.\hskip 1em plus 0.5em minus 0.4em\relax
+  IEEE, 2015, pp. 4121--4126.
+
+\bibitem{ahmed201522}
+N.~R. Ahmed, S.~J. Julier, J.~R. Schoenberg, and M.~E. Campbell,
+  ``Decentralized bayesian fusion in networks with non-gaussian
+  uncertainties,'' \emph{Multisensor Data Fusion: From Algorithms and
+  Architectural Design to Applications}, p. 383, 2015.
+
+\bibitem{Zhang_ttradeof1}
+H.~Zhang, J.~Moura, and B.~Krogh, ``Dynamic field estimation using wireless
+  sensor networks: Tradeoffs between estimation error and communication cost,''
+  \emph{Signal Processing, IEEE Transactions on}, vol.~57, no.~6, pp.
+  2383--2395, June 2009.
+
+\bibitem{5509143}
+A.~Simonetto, T.~Keviczky, and R.~Babuška, ``Distributed nonlinear estimation
+  for robot localization using weighted consensus,'' in \emph{IEEE
+  International Conference on Robotics and Automation}, May 2010, pp.
+  3026--3031.
+
+\bibitem{whitacre2013cooperative}
+W.~W. Whitacre and M.~E. Campbell, ``Cooperative estimation using mobile sensor
+  nodes in the presence of communication loss,'' \emph{Journal of Aerospace
+  Information Systems}, vol.~10, no.~3, pp. 114--130, 2013.
+
+\bibitem{xiao2005scheme}
+L.~Xiao, S.~Boyd, and S.~Lall, ``A scheme for robust distributed sensor fusion
+  based on average consensus,'' in \emph{Proceedings of the 4th International
+  Symposium on Information processing in sensor networks}.\hskip 1em plus 0.5em
+  minus 0.4em\relax IEEE Press, 2005, p.~9.
+
+\bibitem{olfati2005distributed}
+R.~Olfati-Saber, ``Distributed kalman filter with embedded consensus filters,''
+  in \emph{Decision and Control, and European Control Conference.
+  CDC-ECC'05.}\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2005, pp.
+  8179--8184.
+
+\bibitem{battistelli2014parallel}
+G.~Battistelli, L.~Chisci, and C.~Fantacci, ``Parallel consensus on likelihoods
+  and priors for networked nonlinear filtering,'' \emph{IEEE Signal Processing
+  Letters}, vol.~21, no.~7, pp. 787--791, 2014.
+
+\bibitem{rao2003constrained}
+C.~V. Rao, J.~B. Rawlings, and D.~Q. Mayne, ``Constrained state estimation for
+  nonlinear discrete-time systems: Stability and moving horizon
+  approximations,'' \emph{IEEE transactions on automatic control}, vol.~48,
+  no.~2, pp. 246--258, 2003.
+
+\bibitem{boem2013distributed}
+F.~Boem, R.~M. Ferrari, T.~Parisini, and M.~M. Polycarpou, ``Distributed fault
+  diagnosis for continuous-time nonlinear systems: The input--output case,''
+  \emph{Annual Reviews in Control}, vol.~37, no.~1, pp. 163--169, 2013.
+
+\bibitem{hu2014state}
+J.~Hu, D.~Chen, and J.~Du, ``State estimation for a class of discrete nonlinear
+  systems with randomly occurring uncertainties and distributed sensor
+  delays,'' \emph{International Journal of General Systems}, vol.~43, no. 3-4,
+  pp. 387--401, 2014.
+
+\bibitem{hlinka2013distributed}
+O.~Hlinka, F.~Hlawatsch, and P.~M. Djuric, ``Distributed particle filtering in
+  agent networks: A survey, classification, and comparison,'' \emph{IEEE Signal
+  Processing Magazine}, vol.~30, no.~1, pp. 61--81, 2013.
+
+\bibitem{tamjidi2016unifying}
+A.~Tamjidi, S.~Chakravorty, and D.~Shell, ``Unifying consensus and covariance
+  intersection for decentralized state estimation,'' in \emph{Intelligent
+  Robots and Systems, IEEE/RSJ International Conference on}, 2016, pp.
+  125--130.
+
+\bibitem{wang_distr_CI}
+Y.~Wang and X.~Li, ``Distributed estimation fusion with unavailable
+  cross-correlation,'' \emph{Aerospace and Electronic Systems, IEEE
+  Transactions on}, vol.~48, no.~1, pp. 259--278, Jan 2012.
+
+\bibitem{hu2012diffusion}
+J.~Hu, L.~Xie, and C.~Zhang, ``Diffusion kalman filtering based on covariance
+  intersection,'' \emph{Signal Processing, IEEE Transactions on}, vol.~60,
+  no.~2, pp. 891--902, 2012.
+
+\bibitem{cattivelli2010diffusion}
+F.~S. Cattivelli and A.~H. Sayed, ``Diffusion strategies for distributed kalman
+  filtering and smoothing,'' \emph{IEEE Transactions on automatic control},
+  vol.~55, no.~9, pp. 2069--2084, 2010.
+
+\bibitem{battistelli2016stability}
+G.~Battistelli and L.~Chisci, ``Stability of consensus extended kalman filter
+  for distributed state estimation,'' \emph{Automatica}, vol.~68, pp. 169--178,
+  2016.
+
+\bibitem{dist_inf_filter_2009}
+D.~Casbeer and R.~Beard, ``Distributed information filtering using consensus
+  filters,'' in \emph{American Control Conference. ACC}, June 2009, pp.
+  1882--1887.
+
+\bibitem{lin_dist_part_filter_2014}
+L.~Mao and D.~W. Yang, ``Distributed information fusion particle filter,'' in
+  \emph{Intelligent Human-Machine Systems and Cybernetics, Sixth International
+  Conference on}, vol.~1, Aug 2014, pp. 194--197.
+
+\bibitem{hlinka2012likelihood}
+O.~Hlinka, O.~Sluciak, F.~Hlawatsch, P.~M. Djuric, and M.~Rupp, ``Likelihood
+  consensus and its application to distributed particle filtering,'' \emph{IEEE
+  Transactions on Signal Processing}, vol.~60, no.~8, pp. 4334--4349, 2012.
+
+\bibitem{li2012distributed}
+W.~Li and Y.~Jia, ``Distributed consensus filtering for discrete-time nonlinear
+  systems with non-gaussian noise,'' \emph{Signal Processing}, vol.~92, no.~10,
+  pp. 2464--2470, 2012.
+
+\bibitem{battistelli2014kullback}
+G.~Battistelli and L.~Chisci, ``Kullback--leibler average, consensus on
+  probability densities, and distributed state estimation with guaranteed
+  stability,'' \emph{Automatica}, vol.~50, no.~3, pp. 707--718, 2014.
+
+\bibitem{bailey2012conservative}
+T.~Bailey, S.~Julier, and G.~Agamennoni, ``On conservative fusion of
+  information with unknown non-gaussian dependence,'' in \emph{Information
+  Fusion (FUSION), 2012 International Conference on}, 2012, pp. 1876--1883.
+
+\bibitem{ajgl2015design}
+J.~Ajgl and M.~{\v{S}}imandl, ``Design of a robust fusion of probability
+  densities,'' in \emph{American Control Conference (ACC), 2015}.\hskip 1em
+  plus 0.5em minus 0.4em\relax IEEE, 2015, pp. 4204--4209.
+
+\bibitem{anderson1997forgetting}
+B.~D. Anderson, ``Forgetting properties for hidden markov models,'' in
+  \emph{Proc. AFOSWDSTO Workshop}, 1997.
+
+\bibitem{bhattacharyya1946measure}
+A.~Bhattacharyya, ``On a measure of divergence between two multinomial
+  populations,'' \emph{Sankhy{\=a}: The Indian Journal of Statistics}, pp.
+  401--406, 1946.
+
+\end{thebibliography}

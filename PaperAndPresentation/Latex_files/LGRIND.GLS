@@ -1,0 +1,23 @@
+
+ \begin{theglossary} 
+
+    \makeatletter\scan@allowedfalse
+
+  \item v1.0\efill 
+ \subitem General:\ Written\pfill 1
+  \item v2.0\efill 
+ \subitem General:\ Upgrade to \LaTeX  2.09\pfill 1
+  \item v3.0\efill 
+ \subitem General:\ Added package options\pfill 10
+      \subsubitem Upgrade to \LaTeXe  \pfill 1
+    \subitem \verb*+\DefaultProc+:\ Reintroduced procedure names in the margins\pfill 10
+  \item v3.1\efill 
+ \subitem General:\ C functions are now detected much more reliably\pfill 6
+      \subsubitem Pascal objects now treated properly\pfill 7
+      \subsubitem The \LaTeX  -text put into the files is no longer hardcoded into the executable\pfill 
+		8
+    \subitem \verb*+\NOfont+:\ Numbers can now have an own style (i.\,e. font)\pfill 10
+  \item v3.2\efill 
+ \subitem General:\ Added MatLab, LaTeX, BASIC (John Leis)\pfill 2
+
+ \end{theglossary}
