@@ -1,0 +1,12 @@
+syms p real
+syms q real
+syms a real
+syms b real
+syms c real
+syms t1 t2 t3 t4 real
+post =  [p ,1-p]*[t1,t2;t3 t4]*[a,0;0,b]
+post = post./sum(post)
+pretty(post(1))
+num = p*(t1 - t3) +t3
+% den = p*(t1 - t3) +t3 + c*(p*(t2 - t4) +t4)
+den = p*( (t1 - t3) +c*(t2 - t4)) +(t3+c*t4)
