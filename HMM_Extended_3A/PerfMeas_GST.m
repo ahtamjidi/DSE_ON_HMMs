@@ -9,6 +9,7 @@ function PM_GST = PerfMeas_GST(Global,Network,Network_GST)
             PM_GST.TVD(i,k) = 1/2*max(abs(Network_GST.Node(i).Post(:,k)-Network.Node(i).Post(:,k)));
             temp = Network_GST.Node(i).Post(:,k)./Network.Node(i).Post(:,k);
             PM_GST.ProjMetric(i,k) = log(max(temp)/min(temp));
+            PM_GST.L1(i,k) = sum(abs(Network_GST.Node(i).Post(:,k)-Network.Node(i).Post(:,k)));
         end
     end
     PM_GST.meanBCS = mean(PM_GST.BCS);
