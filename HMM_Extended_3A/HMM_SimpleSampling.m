@@ -14,7 +14,7 @@ function [Network,x_t] = HMM_SimpleSampling(T,MotMdl,initState,Network)
     
     
     for i = 1:T        
-            Network.isConnected(:,i) = Network.ProbOfLinkFail(:,mod(i-1,27)+1);      
+            Network.isConnected(:,i) = Network.Connectivity(:,i);      
         if i > 1
             ProbDistVec = MotMdl(x_t(1,i-1),:);
             x_t(1,i) = SampleFromDist(ProbDistVec,1);

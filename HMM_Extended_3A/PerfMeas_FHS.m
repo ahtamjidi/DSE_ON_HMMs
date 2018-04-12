@@ -1,4 +1,4 @@
-function PM_GST = PerfMeas_GST(Global,Network,Network_GST)
+function PM_GST = PerfMeas_FHS(Global,Network,Network_GST)
     for k=1:Global.T
         for i = 1:Network.NumNodes            
             PM_GST.Node(i).CM(k) = ClosenessMeasures(Network_GST.Node(i).Post(:,k),Network.Node(i).Post(:,k));
