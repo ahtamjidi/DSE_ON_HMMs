@@ -2,7 +2,7 @@ function [Network] = GCF(HMM,Network,k)
 % Generalized Conservative Fusion(#6)
     for i = 1:Network.NumNodes
         Network.Node(i).GCF_Est.Pred(:,k) = HMM.MotMdl'*Network.Node(i).GCF_Est.Prior(:,k);
-        Network.Node(i).GCF_Est.Post(:,k) = Network.Node(i).GCF_Est.Pred(:,k).*Network.Node(i).ObsMdl(:,Network.Node(i).z(1,k));
+        Network.Node(i).GCF_Est.Post(:,k) = Network.Node(i).GCF_Est.Pred(:,k).*Network.Node(i).ObsMdl(:,Network.Node(i).z(k));
         Network.Node(i).GCF_Est.Post(:,k) = Network.Node(i).GCF_Est.Post(:,k)/sum(Network.Node(i).GCF_Est.Post(:,k));
     end
     ConComps = Network.ConComps{k};

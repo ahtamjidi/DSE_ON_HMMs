@@ -5,7 +5,7 @@ function [Network] = GMD(HMM,Network,k) % Our approach: Conservative fusion of p
 	NumConNodes = size(ConComp,2);
         if NumConNodes == 1            
             Network.Node(ConComp).GMD_Est.Pred(:,k) = HMM.MotMdl'*Network.Node(ConComp).GMD_Est.Prior(:,k);
-            Network.Node(ConComp).GMD_Est.Post(:,k) = Network.Node(ConComp).GMD_Est.Pred(:,k).*Network.Node(ConComp).ObsMdl(:,Network.Node(ConComp).z(1,k));
+            Network.Node(ConComp).GMD_Est.Post(:,k) = Network.Node(ConComp).GMD_Est.Pred(:,k).*Network.Node(ConComp).ObsMdl(:,Network.Node(ConComp).z(k));
             Network.Node(ConComp).GMD_Est.Post(:,k) = Network.Node(ConComp).GMD_Est.Post(:,k)/sum(Network.Node(ConComp).GMD_Est.Post(:,k));
         else
             %% Optimization
@@ -28,7 +28,7 @@ function [Network] = GMD(HMM,Network,k) % Our approach: Conservative fusion of p
             Pred = HMM.MotMdl'*Prior;
             Post = Pred;
             for j = 1:NumConNodes
-                Post = Post.*Network.Node(ConComp(j)).ObsMdl(:,Network.Node(ConComp(j)).z(1,k));
+                Post = Post.*Network.Node(ConComp(j)).ObsMdl(:,Network.Node(ConComp(j)).z(k));
             end
             Post = Post/sum(Post);
             for j = 1:NumConNodes
