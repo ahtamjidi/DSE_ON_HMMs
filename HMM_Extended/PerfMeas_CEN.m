@@ -5,11 +5,10 @@ function PM_CEN = PerfMeas_CEN(Global,Network,Network_CEN)
             PM_CEN.BCS(i,k) = PM_CEN.Node(i).CM(k).BCS;
             PM_CEN.HEL(i,k) = PM_CEN.Node(i).CM(k).HEL;
             PM_CEN.KLD(i,k) = KLD(Network_CEN.Node(i).Post(:,k),Network.Node(i).Post(:,k));
-            if any(Network_CEN.Node(i).Post(:,k)~=Network.Node(i).Post(:,k))
-                temp = 1;
-            end
             PM_CEN.dcorr(i,k) = dcorr(Network_CEN.Node(i).Post(:,k),Network.Node(i).Post(:,k));
             PM_CEN.TVD(i,k) = 1/2*max(abs(Network_CEN.Node(i).Post(:,k)-Network.Node(i).Post(:,k)));
+            temp = Network_CEN.Node(i).Post(:,k)./Network.Node(i).Post(:,k);
+            PM_CEN.ProjMetric(i,k) = log(max(temp)/min(temp));            
         end
     end
     PM_CEN.meanBCS = mean(PM_CEN.BCS);
@@ -17,4 +16,5 @@ function PM_CEN = PerfMeas_CEN(Global,Network,Network_CEN)
     PM_CEN.meanKLD = mean(PM_CEN.KLD);
     PM_CEN.meandcorr = mean(PM_CEN.dcorr);
     PM_CEN.meanTVD = mean(PM_CEN.TVD);
+    PM_CEN.meanProjMetric = mean(PM_CEN.ProjMetric);    
 end
