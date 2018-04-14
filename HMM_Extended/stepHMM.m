@@ -1,4 +1,4 @@
-function [HMM,Network] = HMM_Step(HMM,Network,k)              
+function [HMM,Network] = stepHMM(~,HMM,Network,k)              
     if k > 1
         ProbDistVec = HMM.MotMdl(HMM.TrueStates(1,k-1),:);
         HMM.TrueStates(1,k) = SampleFromDist(ProbDistVec,1);

@@ -1,28 +1,23 @@
 clearvars;
 close all;
 clc;
-rng(1458);
+addpath(genpath('./'),'-end');
 %% Initilization
-%Globals vars and the Field
-Sim = initSim();
-HMM = initHMM(Sim);
-Network = initNetwork(Sim,HMM);
-
+EndTime = 27*2;
+seed = 1458;
+NetworkMdl = 1; 
+MarkovMdl = 1;
+EstimatorMdl = 1; 
+[Sim, HMM, Network] = initSim(EndTime,seed,NetworkMdl,MarkovMdl,EstimatorMdl);
 %% Simulations
-for k = 1:Sim.EndTime    
-    [HMM,Network] = HMM_Step(HMM,Network,k);
-    [Network] = Network_step(Network,k);
-    Network = GMD(HMM,Network,k);
-    Network = GCF(HMM,Network,k);
-    Network = FHS(HMM,Network,k);
-%     Network_CEN = CEN(Global,Network_CEN,k);     
+for k = 1:Sim.EndTime
+    [HMM,Network] = stepHMM(Sim,HMM,Network,k);
+    [Network] = stepNET(Sim,HMM,Network,k);
+    [Network] = stepEST(Sim,HMM,Network,k);
 end
-
-%% Fix it
+%% Performance Measures
 PM_GMD_FHS = PerfMeas_FHS(Sim,Network,'GMD');
 PM_GCF_FHS = PerfMeas_FHS(Sim,Network,'GCF');
-% PM_GMD_CEN = PerfMeas_CEN(Global,Network_GMD,Network_CEN);
-% PM_GCF_CEN = PerfMeas_CEN(Global,Network_GCF,Network_CEN);
 %% PLOT FHS L1
 figure
 for j=1:Network.NumNodes
