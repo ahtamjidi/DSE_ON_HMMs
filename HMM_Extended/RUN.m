@@ -22,3 +22,4 @@ Config.NetConnectivity([1 5],10:17) = 1;
 [PM_GMD_FHS,PM_GCF_FHS,Sim,HMM,Network] = SIM(Config);
 %% Plots
 PlotNodesL1(1:Network.NumNodes,Sim,Network,PM_GMD_FHS,PM_GCF_FHS);
+NetGraph(Sim,Network);
