@@ -19,7 +19,7 @@ function [Network] = GMD(HMM,Network,k) % Our approach: Conservative fusion of p
             beq = 1;
             lb = zeros(1,NumConNodes);
             ub = ones(1,NumConNodes);
-            [omega] = fmincon(Cost,omega_0,A,b,Aeq,beq,lb,ub);
+            [omega] = fmincon(Cost,omega_0,A,b,Aeq,beq,lb,ub,[],optimoptions('fmincon','Display','notify-detailed'));
             %% Update connected components
             Prior = ones(size(Network.Node(1).GMD_Est.Prior(:,k)));
             for j = 1:NumConNodes

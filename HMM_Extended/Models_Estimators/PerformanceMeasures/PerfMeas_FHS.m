@@ -19,6 +19,7 @@ function PM_FHS = PerfMeas_FHS(Sim,Network,EstName)
             PM_FHS.L1(i,k) = sum(abs(Network.Node(i).FHS_Est.Post(:,k)-Est.Post(:,k)));
         end
     end
+    PM_FHS.meanL1 = mean(PM_FHS.L1);
     PM_FHS.meanBCS = mean(PM_FHS.BCS);
     PM_FHS.meanHEL = mean(PM_FHS.HEL);
     PM_FHS.meanKLD = mean(PM_FHS.KLD);

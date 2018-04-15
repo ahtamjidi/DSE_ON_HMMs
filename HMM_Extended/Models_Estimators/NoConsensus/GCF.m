@@ -19,7 +19,7 @@ function [Network] = GCF(HMM,Network,k)
             beq = 1;
             lb = zeros(1,NumConNodes);
             ub = ones(1,NumConNodes);
-            [omega,~] = fmincon(Cost,omega_0,A,b,Aeq,beq,lb,ub);
+            [omega,~] = fmincon(Cost,omega_0,A,b,Aeq,beq,lb,ub,[],optimoptions('fmincon','Display','notify-detailed'));
             %% Update
             Post = ones(size(Network.Node(ConComp(1)).GCF_Est.Prior(:,k)));
             for j = 1:NumConNodes
