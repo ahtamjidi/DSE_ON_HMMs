@@ -1,6 +1,6 @@
-function [PM_GMD_FHS,PM_GCF_FHS,Sim,HMM,Network] = SIM(Config)
+function [PM_GMD_FHS,PM_GCF_FHS,Sim,HMM,Network] = SIM(Sim)
     %% Initilization
-    [Sim, HMM, Network] = initSim(Config);
+    [Sim, HMM, Network] = initSim(Sim);
     %% Simulation
     for k = 1:Sim.EndTime
         [HMM,Network] = stepHMM(Sim,HMM,Network,k);

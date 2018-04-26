@@ -1,4 +1,4 @@
-function [Network] = FHS(HMM,Network,k)
+function [Network] = FHS(~,HMM,Network,k)
     %% Update the Network connection history in Network.ConHist
     [Network] = UpdateConHis(Network,k);
     %% Update Estimator Posteriors

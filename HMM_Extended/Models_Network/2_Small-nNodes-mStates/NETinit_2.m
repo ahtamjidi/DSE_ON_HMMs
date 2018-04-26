@@ -5,7 +5,7 @@ function [Network] = NETinit_2(Sim,HMM)
     Est.Prior  = zeros(HMM.NumStates,Sim.EndTime);
     Est.Pred   = zeros(HMM.NumStates,Sim.EndTime);
     Est.Post   = zeros(HMM.NumStates,Sim.EndTime);
-    Est.Prior(HMM.TrueStates(1,1),1) = 1;
+    Est.Prior(:,1) = Sim.Prior0;
     Est.omega = 1/Network.NumNodes;
     %% Building the estimators and graphs
     for i = 1:Network.NumNodes
@@ -19,11 +19,11 @@ function [Network] = NETinit_2(Sim,HMM)
         Network.ConComps{k} = {};
     end
     %% Nodes observation models (constant over time)
-    DiagRng = repmat([0.8 0.95],Network.NumNodes,1);
-    DiagRng(1,:) = [0.8 0.95];
-    DiagRng(2,:) = [0.8 0.95];
-    DiagRng(3,:) = [0.8 0.95];
-    DiagRng(4,:) = [0.8 0.95];
+    DiagRng = repmat([0.6 0.7],Network.NumNodes,1);
+    DiagRng(1,:) = [0.6 0.7];
+    DiagRng(2,:) = [0.6 0.75];
+    DiagRng(3,:) = [0.6 0.7];
+    DiagRng(4,:) = [0.6 0.75];
     for i = 1:Network.NumNodes
         Network.Node(i).ObsMdl = RndStMat(HMM.NumStates,DiagRng(i,:));
     end

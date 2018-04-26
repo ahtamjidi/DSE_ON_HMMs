@@ -1,46 +1,48 @@
-function [Sim,HMM,Network] = initSim(Config)        
-    Sim.EndTime = Config.EndTime;
-    Sim.seed = Config.seed;
-    Sim.NetworkMdl = Config.NetworkMdl;
-    Sim.MarkovMdl = Config.MarkovMdl;
-    Sim.EstimatorMdl = Config.EstimatorMdl;    
-    rng(Config.seed);
+function [Sim,HMM,Network] = initSim(Sim)
+    rng(Sim.seed);
+    CheckSim(Sim);
     %% Check for legit combinations of HMM, Network and estimators and initilize accordingly
     if Sim.MarkovMdl == 1 && Sim.NetworkMdl == 1
         Sim.NumStates = 2;
         Sim.NumNodes = 4;
-        Sim.NetConnectivity = Config.NetConnectivity;
-        CheckConfig(Config,Sim)
-        HMM = HMMinit_1(Sim); 
+        [Sim,HMM] = HMMinit_1(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
         Network = NETinit_1(Sim,HMM);
     elseif Sim.MarkovMdl == 2 && Sim.NetworkMdl == 1
         Sim.NumStates = 2;
         Sim.NumNodes = 4;
-        Sim.NetConnectivity = Config.NetConnectivity;
-        CheckConfig(Config,Sim)
-        HMM = HMMinit_2(Sim);
+        [Sim,HMM] = HMMinit_2(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
         Network = NETinit_1(Sim,HMM);
     elseif Sim.MarkovMdl == 1 && Sim.NetworkMdl == 2
         Sim.NumStates = 2;
-        Sim.NumNodes = Config.NumNodes;
-        Sim.NetConnectivity = Config.NetConnectivity;
-        CheckConfig(Config,Sim)
-        HMM = HMMinit_1(Sim);
+        [Sim,HMM] = HMMinit_1(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
         Network = NETinit_2(Sim,HMM);
-    elseif Sim.MarkovMdl == 2 && Sim.NetworkMdl == 2
-        Sim.NumStates = Config.NumStates;
-        Sim.NumNodes = Config.NumNodes;
-        Sim.NetConnectivity = Config.NetConnectivity;
-        CheckConfig(Config,Sim)
-        HMM = HMMinit_2(Sim);
+    elseif Sim.MarkovMdl ==2 && Sim.NetworkMdl == 2
+        [Sim,HMM] = HMMinit_2(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
+        Network = NETinit_2(Sim,HMM);        
+    elseif Sim.MarkovMdl == 2 && Sim.NetworkMdl == 3
+        [Sim,HMM] = HMMinit_2(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
+        Network = NETinit_3(Sim,HMM);
+    elseif Sim.MarkovMdl == 1 && Sim.NetworkMdl == 3
+        Sim.NumStates = 2;
+        [Sim,HMM] = HMMinit_2(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
+        Network = NETinit_3(Sim,HMM);    
+    elseif Sim.MarkovMdl ==3 && Sim.NetworkMdl == 2
+        [Sim,HMM] = HMMinit_3(Sim);
+        Sim.Prior0 = ones(Sim.NumStates,1)/Sim.NumStates;
         Network = NETinit_2(Sim,HMM);
     else
         WrongConfig();
     end
 end
-function CheckConfig(Config,Sim)
-    if size(Config.NetConnectivity,1) ~= Sim.NumNodes
-        error('Something wrong with the given config ');
+function CheckSim(Sim)
+    if size(Sim.NetConnectivity,1) ~= Sim.NumNodes
+        error('In this mode size of NetConnectivity must be equal to NumNodes');
     end
 end
 function WrongConfig

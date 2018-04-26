@@ -1,4 +1,4 @@
-function [Network] = ESTstep_NoConsensus(~,HMM,Network,k)
+function [Network] = ESTstep_NoConsensus(Sim,HMM,Network,k)
     %% Update the estimators' priors based on the previous step posteriors
     if k~=1
         for i = 1:Network.NumNodes
@@ -8,8 +8,8 @@ function [Network] = ESTstep_NoConsensus(~,HMM,Network,k)
         end
     end
     %% Update the estimators' posteriors 
-    Network = GMD(HMM,Network,k);
-    Network = GCF(HMM,Network,k);
-    Network = FHS(HMM,Network,k);
+    Network = GMD(Sim,HMM,Network,k);
+    Network = GCF(Sim,HMM,Network,k);
+    Network = FHS(Sim,HMM,Network,k);
 %     Network_CEN = CEN(Global,Network_CEN,k);    
 end

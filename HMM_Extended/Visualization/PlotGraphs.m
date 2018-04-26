@@ -1,35 +1,35 @@
-function varargout = NetGraph(varargin)
-% NETGRAPH MATLAB code for NetGraph.fig
-%      NETGRAPH, by itself, creates a new NETGRAPH or raises the existing
+function varargout = PlotGraphs(varargin)
+% PlotGraphs MATLAB code for PlotGraphs.fig
+%      PlotGraphs, by itself, creates a new PlotGraphs or raises the existing
 %      singleton*.
 %
-%      H = NETGRAPH returns the handle to a new NETGRAPH or the handle to
+%      H = PlotGraphs returns the handle to a new PlotGraphs or the handle to
 %      the existing singleton*.
 %
-%      NETGRAPH('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in NETGRAPH.M with the given input arguments.
+%      PlotGraphs('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in PlotGraphs.M with the given input arguments.
 %
-%      NETGRAPH('Property','Value',...) creates a new NETGRAPH or raises the
+%      PlotGraphs('Property','Value',...) creates a new PlotGraphs or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before NetGraph_OpeningFcn gets called.  An
+%      applied to the GUI before PlotGraphs_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to NetGraph_OpeningFcn via varargin.
+%      stop.  All inputs are passed to PlotGraphs_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help NetGraph
+% Edit the above text to modify the response to help PlotGraphs
 
-% Last Modified by GUIDE v2.5 15-Apr-2018 02:12:24
+% Last Modified by GUIDE v2.5 19-Apr-2018 10:21:33
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @NetGraph_OpeningFcn, ...
-                   'gui_OutputFcn',  @NetGraph_OutputFcn, ...
+                   'gui_OpeningFcn', @PlotGraphs_OpeningFcn, ...
+                   'gui_OutputFcn',  @PlotGraphs_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -43,37 +43,52 @@ else
 end
 % End initialization code - DO NOT EDIT
 
-% --- Executes just before NetGraph is made visible.
-function NetGraph_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before PlotGraphs is made visible.
+function PlotGraphs_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to NetGraph (see VARARGIN)
+% varargin   command line arguments to PlotGraphs (see VARARGIN)
+
+if size(varargin,2)~=3
+    % Choose default command line output for PlotGraphs
+    handles.output = hObject;
+    handles.SIMDATA = varargin;
+
+    % Update handles structure
+    guidata(hObject, handles);    
+    % This sets up the initial plot - only do when we are invisible
+    % so window can get raised using PlotGraphs.
+    if strcmp(get(hObject,'Visible'),'off')
+        plot(rand(5),'Parent',handles.axes1);
+    end
+    return;
+end
+
 
 Sim = varargin{1};
-Network = varargin{2};
-n = Network.NumNodes;
-A = ones(n) - diag(ones(1,n));
-G = graph(A~=0);
-p = plot(G, 'Parent',handles.axes1);
+HMM = varargin{2};
+Network = varargin{3};
+initVal = 1; m = 1; M = Sim.EndTime;
+p = plot(Network.graph{initVal}, 'Parent',handles.axes1,'Layout','circle');
 
-% Choose default command line output for NetGraph
+
+MC = dtmc(HMM.MotMdl);
+MCG = graphplot(handles.axes2,MC,'ColorEdges',true);
+MCG.NodeColor=[0 0 0];
+highlight(MCG,HMM.TrueStates(initVal),'NodeColor','red');
+
+% Choose default command line output for PlotGraphs
 handles.output = hObject;
 handles.SIMDATA = varargin;
 handles.GRAPH_POINTS = {p.XData,p.YData};
-
+handles.MC = MC;
+handles.MCG = MCG;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% This sets up the initial plot - only do when we are invisible
-% so window can get raised using NetGraph.
-if strcmp(get(hObject,'Visible'),'off')
-    %plot(rand(5));
-end
-
-initVal = 1; m = 1; M = Sim.EndTime;
 set(handles.slider1,'value',initVal);
 set(handles.slider1,'min',m);
 set(handles.slider1,'max',M);
@@ -83,30 +98,39 @@ set(handles.text1,'String',num2str(m));
 set(handles.text2,'String',num2str(M));
 set(handles.text3,'String',num2str(initVal));
 handles.slider1.addlistener('ContinuousValueChange',@(hFigure,eventdata) slider1ContValCallback(hFigure,eventdata));
-g = Network.graph{int32(initVal)};
-plot(g, 'Parent', handles.axes1, 'XData',p.XData, 'YData',p.YData);
+
 
 function slider1ContValCallback(hObject,eventdata)
-    v = get(hObject,'Value');
-    set(hObject,'Value',int32(v));
-    set(hObject.Parent.Children(1),'String',int32(v));
+    vf = get(hObject,'Value');
+    v = int32(vf);
+    set(hObject,'Value',v);
+    set(hObject.Parent.Children(1),'String',v);
     h = guidata(hObject.Parent.Parent);
     Sim = h.SIMDATA{1};
-    Network = h.SIMDATA{2};
+    HMM = h.SIMDATA{2};
+    Network = h.SIMDATA{3};
     XData = h.GRAPH_POINTS{1};
     YData = h.GRAPH_POINTS{2};
-    g = Network.graph{int32(v)};
+    g = Network.graph{v};
     plot(g, 'Parent', h.axes1, 'XData',XData, 'YData',YData);
     
+    h.MCG.NodeColor=[0 0 0];
+    highlight(h.MCG,HMM.TrueStates(v),'NodeColor','red');
+    if v==1
+    else        
+    end
+    
+    
+    
     
 
 
-% UIWAIT makes NetGraph wait for user response (see UIRESUME)
+% UIWAIT makes PlotGraphs wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = NetGraph_OutputFcn(hObject, eventdata, handles)
+function varargout = PlotGraphs_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -211,6 +235,7 @@ function slider1_Callback(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
+    
 
 % --- Executes during object creation, after setting all properties.
 function slider1_CreateFcn(hObject, eventdata, handles)
@@ -222,3 +247,10 @@ function slider1_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes when figure1 is resized.
+function figure1_SizeChangedFcn(hObject, eventdata, handles)
+% hObject    handle to figure1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

@@ -1,6 +1,6 @@
-function [Network] = NETinit_1(Sim,HMM)
+function [Network] = NETinit_3(Sim,HMM)
     %% First and formost is the number of nodes!
-    Network.NumNodes = Sim.NumNodes;
+    Network.NumNodes = Sim.NumNodes;    
     %% Initializing an estimator
     Est.Prior  = zeros(HMM.NumStates,Sim.EndTime);
     Est.Pred   = zeros(HMM.NumStates,Sim.EndTime);
@@ -19,12 +19,15 @@ function [Network] = NETinit_1(Sim,HMM)
         Network.ConComps{k} = {};
     end
     %% Nodes observation models (constant over time)
-    Network.Node(1).ObsMdl = [5/6, 1/6;3/12, 9/12];
-    Network.Node(2).ObsMdl = [4/6, 2/6;4/12, 8/12];
-    Network.Node(3).ObsMdl = [4/6, 2/6;3/12, 9/12];
-    Network.Node(4).ObsMdl = [0.95, 0.05;0.05, 0.95];
-    
-    %% Manually set network connectivity over time
-    Network.ConHist(:,:,1) = eye(Network.NumNodes);    
-    Network.Connectivity = Sim.NetConnectivity(1:Network.NumNodes,:);
+    DiagRng = repmat([0.8 0.95],Network.NumNodes,1);    
+    for i = 1:Network.NumNodes
+        Network.Node(i).ObsMdl = RndStMat(HMM.NumStates,DiagRng(i,:));
+    end
+    %% Ring lattice for Watts Strogatz small world network
+    Network.ConHist(:,:,1) = eye(Network.NumNodes); 
+    Network.ConnectivityPeriod = Sim.ConnectivityPeriod;
+    Network.WS_beta = Sim.WS_beta;
+    Network.WS_RL = RingLattice(Sim.NumNodes,Sim.WS_K);
+    Network.WS_graph = RewireRingLattice(Network.WS_RL,Network.WS_beta);
+    Network.WS_MinSpanTree = minspantree(Network.WS_graph);
 end
