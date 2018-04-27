@@ -2,14 +2,12 @@ function SetConfig(World)
     global Config
     %% Set Config   
     Config.BaseRate = 1;
-    Config.MarkovRate = 60; %360
-    Config.NetRate = 1;
-    Config.SimTime = 20*Config.MarkovRate; %70
+    Config.SimTime = 40; %70
     Config.PixelLen = 1;
     Config.GT_InitState = 11*25;
     Config.DoUpdate = 1;
     
-    Config.Network.ConsensusIter = 10; 
+    Config.Network.ConsensusIter = 50; 
     Config.Network.PorbLinkFailure = 0.3;
     Config.Network.NumOfNodes = 6;
     Config.Network.CoonectivityPercentage = 0.1; % a number between 0 and 1. 1 means full connectivity and 0 meanse full disconnection
@@ -20,7 +18,7 @@ function SetConfig(World)
     Config.Network.Node(1).MoveDir = [0 1];
     Config.Network.Node(1).ObsDir = [1 0];
     Config.Network.Node(1).Pos(1,:) = [1 7];
-    Config.Network.Node(1).ID = 1;    
+    Config.Network.Node(1).ID = 1;
     
     Config.Network.Node(2).MotionMdlType = 1;
     Config.Network.Node(2).ObsMdlType = 1;
@@ -56,13 +54,4 @@ function SetConfig(World)
     Config.Network.Node(6).Pos(1,:) = [6 8];
     Config.Network.Node(6).ID = 6;
     Config.Network.Node(6).ObsMdlType = 1;      
-    
-    %% Check Config
-    % Check Rates
-    if mod(Config.MarkovRate,Config.BaseRate) ~=0
-        error('Internal Error: MarkovRate should be an integer multiplier of the BaseRate!');
-    end
-    if mod(Config.NetRate,Config.BaseRate) ~=0
-        error('Internal Error: NetRate should be an integer multiplier of the BaseRate!');
-    end
 end

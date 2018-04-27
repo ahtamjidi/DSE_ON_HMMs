@@ -6,10 +6,13 @@ function PM_CEN = PerfMeas_CEN(Sim,Network,Network_CEN)
             PM_CEN.HEL(i,k) = PM_CEN.Node(i).CM(k).HEL;
             PM_CEN.L1(i,k) = PM_CEN.Node(i).CM(k).L1;
 
+            temp = Network_CEN.Node(i).Post(:,k)./Network.Node(i).Post(:,k);
+            PM_CEN.ProjMetric(i,k) = log(max(temp)/min(temp));              
         end        
     end
     PM_CEN.meanBCS = mean(PM_CEN.BCS);
     PM_CEN.meanHEL = mean(PM_CEN.HEL);
     PM_CEN.meanL1 = mean(PM_CEN.L1);
+    PM_CEN.meanProjMetric = mean(PM_CEN.ProjMetric);  
 
 end

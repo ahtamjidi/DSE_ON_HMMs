@@ -3,14 +3,14 @@ function KLD_error = KLDCostFuncGMD(omega,Network,k,con)
         aaa=1;
     end
     NumConNodes = size(con,2);
-    Prior = ones(size(Network.Node(1).Prior(:,k)));
+    Prior = ones(size(Network.Node(1).GMD_Est.Prior(:,k)));
     for i = 1:NumConNodes
-        Prior = Prior.*Network.Node(con(i)).Prior(:,k).^omega(i);
+        Prior = Prior.*Network.Node(con(i)).GMD_Est.Prior(:,k).^omega(i);
     end
     Prior = Prior/sum(Prior);
     D_kl = zeros(1,NumConNodes);
     for i = 1:NumConNodes
-        D_kl(i) = KLD(Prior,Network.Node(con(i)).Prior(:,k));
+        D_kl(i) = KLD(Prior,Network.Node(con(i)).GMD_Est.Prior(:,k));
     end
     KLD_error = max(D_kl);
     
