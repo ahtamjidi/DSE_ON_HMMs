@@ -12,7 +12,10 @@ Network = LocalEstimateCalc(Network,'GCF',k);
 
 
 % iterative conservative fusion of priors
-Network = IterativeConservativeFusion(Network,'GCF',k);
+% choose VGCF for ICF without optmizaton and based on CL weights
+% Network = IterativeConservativeFusion(Network,'GCF',k);
+Network = IterativeConservativeFusion(Network,'VGCF',k);
+
 
 
 % update 

@@ -1,4 +1,4 @@
-function ICF = LocalConservativeFusion(LocalNetwork,iConsensus,Method,k)
+function ICF = LocalConservativeFusion(LocalNetwork,iConsensus,Method,k, Graph, iNeighbours, iNode)
 nNeighbours = numel(LocalNetwork);
 if isempty(LocalNetwork)
     ICF = [];
@@ -40,6 +40,21 @@ else
             end
             ICF = Post/sum(Post);
             
+        case 'NGMD_VICF'
+            %% No Optimization
+            Prior = ones(size(LocalNetwork(1).Prior(:,k)));
+            for iNhbr = 1:length(iNeighbours)
+                Prior = Prior.*LocalNetwork(iNhbr).ConsesnsusData(k).ICF(:,iConsensus-1).^(Graph.p(iNode,iNeighbours(iNhbr)));
+            end
+            ICF = Prior/sum(Prior);
+            
+        case 'NGCF_VICF'
+            %% Optimization
+            Post = ones(size(LocalNetwork(1).Post(:,k)));
+            for iNhbr = 1:length(iNeighbours)
+                Post = Post.*LocalNetwork(iNhbr).ConsesnsusData(k).ICF(:,iConsensus-1).^(Graph.p(iNode,iNeighbours(iNhbr)));
+            end
+            ICF = Post/sum(Post);
             
     end
 end

@@ -3,7 +3,9 @@ function [Network] = NGMD(Network,HMM,k)
 % Observations (#4)
 
 % iterative conservative fusion of priors
-Network = IterativeConservativeFusion(Network,'GMD',k);
+% choose VGMD for ICF without optmizaton and based on CL weights
+% Network = IterativeConservativeFusion(Network,'GMD',k);
+Network = IterativeConservativeFusion(Network,'VGMD',k);
 
 % prediction 
 Network = predict(Network,HMM,k);
