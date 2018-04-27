@@ -2,7 +2,7 @@ function SetConfig(World)
     global Config
     %% Set Config   
     Config.BaseRate = 1;
-    Config.SimTime = 40; %70
+    Config.SimTime = 70;
     Config.PixelLen = 1;
     Config.GT_InitState = 11*25;
     Config.DoUpdate = 1;

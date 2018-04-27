@@ -30,40 +30,57 @@ function [PM_NGMD_CEN,PM_NGCF_CEN,PM_NGMD_GST,PM_NGCF_GST,Net_GST,World,Net_NGMD
         
         figure
         subplot(321)
-        plot(PM_NGMD_GST.ProjMetric(1,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(1,:)); hold on ;
+        plot(PM_NGMD_GST.BCS(1,:)); hold on ; plot(PM_NGCF_GST.BCS(1,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(1,:)); hold on ; plot(PM_NGCF_CEN.BCS(1,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N1_{NGMD}','N1_{NGCF}')
+        ylabel('Performance Measure - Node 1')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
 
         subplot(323)
-        plot(PM_NGMD_GST.ProjMetric(2,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(2,:)); 
+        plot(PM_NGMD_GST.BCS(2,:)); hold on ; plot(PM_NGCF_GST.BCS(2,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(2,:)); hold on ; plot(PM_NGCF_CEN.BCS(2,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N2_{NGMD}','N2_{NGCF}')
+        ylabel('Performance Measure - Node 2')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
 
         subplot(325)
-        plot(PM_NGMD_GST.ProjMetric(3,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(3,:));
+        plot(PM_NGMD_GST.BCS(3,:)); hold on ; plot(PM_NGCF_GST.BCS(3,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(3,:)); hold on ; plot(PM_NGCF_CEN.BCS(3,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N3_{NGMD}','N3_{NGCF}')
+        ylabel('Performance Measure - Node 3')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
+
 
         subplot(322)
-        plot(PM_NGMD_GST.ProjMetric(4,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(4,:)); hold on
+        plot(PM_NGMD_GST.BCS(4,:)); hold on ; plot(PM_NGCF_GST.BCS(4,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(4,:)); hold on ; plot(PM_NGCF_CEN.BCS(4,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N4_{NGMD}','N4_{NGCF}')
+        ylabel('Performance Measure - Node 4')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
+
 
         subplot(324)
-        plot(PM_NGMD_GST.ProjMetric(5,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(5,:)); hold on
+        plot(PM_NGMD_GST.BCS(5,:)); hold on ; plot(PM_NGCF_GST.BCS(5,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(5,:)); hold on ; plot(PM_NGCF_CEN.BCS(5,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N5_{NGMD}','N5_{NGCF}')
+        ylabel('Performance Measure - Node 5')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
+
+
 
         subplot(326)
-        plot(PM_NGMD_GST.ProjMetric(6,:)); hold on ; plot(PM_NGCF_GST.ProjMetric(6,:));
+        plot(PM_NGMD_GST.BCS(6,:)); hold on ; plot(PM_NGCF_GST.BCS(6,:)); hold on ;
+        plot(PM_NGMD_CEN.BCS(6,:)); hold on ; plot(PM_NGCF_CEN.BCS(6,:)); hold on ;
+
         xlabel('step')
-        ylabel('Pr distance')
-        legend('N6_{NGMD}','N6_{NGCF}') 
+        ylabel('Performance Measure - Node 6')
+        legend('BC(FHS,HYB)','BC(FHS,ICF)', 'BC(CEN,HYB)','BC(CEN,ICF)')
+
     end
     %% Animation
     for t = 2:size(Sim.GT,2)
