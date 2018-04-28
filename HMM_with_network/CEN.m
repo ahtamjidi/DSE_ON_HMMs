@@ -1,5 +1,4 @@
 function [Network] = CEN(Global,Network,k)
-% Centerlized (#2)
     Prior = Network.Node(1).Prior(:,k);
     Pred = Global.MotMdl'*Prior;
     Post = Pred; %ones(size(Network.Node(1).Prior));

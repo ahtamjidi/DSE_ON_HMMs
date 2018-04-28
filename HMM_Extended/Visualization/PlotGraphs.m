@@ -70,6 +70,12 @@ end
 Sim = varargin{1};
 HMM = varargin{2};
 Network = varargin{3};
+for k = 1:Sim.EndTime
+    g = Network.graph{k};
+    Network.graph{k} = graph(g.Edges,'OmitSelfLoops');
+    varargin{3} = Network;
+end
+
 initVal = 1; m = 1; M = Sim.EndTime;
 p = plot(Network.graph{initVal}, 'Parent',handles.axes1,'Layout','circle');
 

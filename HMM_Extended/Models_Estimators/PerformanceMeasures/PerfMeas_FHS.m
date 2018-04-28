@@ -1,10 +1,10 @@
 function PM_FHS = PerfMeas_FHS(Sim,Network,EstName)
     for k=1:Sim.EndTime 
         for i = 1:Network.NumNodes    
-            if strcmp(EstName,'GMD')
-                Est = Network.Node(i).GMD_Est;
-            elseif strcmp(EstName,'GCF')
-                Est = Network.Node(i).GCF_Est;
+            if strcmp(EstName,'HYB')
+                Est = Network.Node(i).HYB_Est;
+            elseif strcmp(EstName,'ICF')
+                Est = Network.Node(i).ICF_Est;
             else
                 error('Given EstName does not exists');
             end
