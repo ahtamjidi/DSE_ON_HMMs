@@ -8,4 +8,6 @@ function PM_CEN = PerfMeas_CEN(Global,Network,Network_CEN)
     end
     PM_CEN.meanBCS = mean(PM_CEN.BCS);
     PM_CEN.meanHEL = mean(PM_CEN.HEL);
+    PM_CEN.meanL1 = mean(PM_CEN.L1);
+
 end

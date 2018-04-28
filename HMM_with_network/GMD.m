@@ -10,7 +10,7 @@ function [Network] = GMD(Global,Network,k)
     else
         %% Optimization
         %Cost = @(omega)EntropyCostFuncGMD(omega,Network,k);
-        Cost = @(omega)KLDCostFuncGMD(omega,Network,k);
+        Cost = @(omega)KLDCxostFuncGMD(omega,Network,k);
         omega_0 = ones(Network.NumNodes,1)/Network.NumNodes;
         A = [];
         b = [];

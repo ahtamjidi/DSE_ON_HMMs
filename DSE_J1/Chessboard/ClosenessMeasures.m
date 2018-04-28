@@ -23,6 +23,9 @@ function distance = ClosenessMeasures(p1,p2)
     %% Bhattacharyaa Distance
     distance.HEL = sqrt(1-distance.BCS);
     
+    %% Bhattacharyaa Distance
+    distance.L1 = norm(p1-p2,1);
+    
     %% Tests
     % % test
     % p1 = [1 0 ]; p2 = [1,0];
