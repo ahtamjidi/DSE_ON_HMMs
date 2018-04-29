@@ -1,4 +1,6 @@
 function [Network] = ESTstep_2(Sim,HMM,Network,k)
+    %% Update the 
+    [Network.ConsWeightMat(:,:,k),Network.AdjMat] = EvalConsWeightMat(Network.graph{k});
     %% Update the estimators' priors based on the previous step posteriors
     if k~=1        
         Network.CEN_Est.Prior(:,k) = Network.CEN_Est.Post(:,k-1);
@@ -12,5 +14,5 @@ function [Network] = ESTstep_2(Sim,HMM,Network,k)
     Network = HYBwConsensus(Sim,HMM,Network,k);
     Network = ICFwConsensus(Sim,HMM,Network,k);
     Network = FHS(Sim,HMM,Network,k);
-    Network = CEN(Sim,HMM,Network,k);    
+    Network = CEN(Sim,HMM,Network,k);
 end

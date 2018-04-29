@@ -1,5 +1,6 @@
 function [Sim,HMM] = HMMinit_3(Sim)
     World = CreateWorld(Sim.ImageName);
+    Sim.World = World;
     Sim.NumStates = World.NumStates;
     HMM.NumStates = Sim.NumStates;
     HMM.MotMdl = zeros(Sim.NumStates);

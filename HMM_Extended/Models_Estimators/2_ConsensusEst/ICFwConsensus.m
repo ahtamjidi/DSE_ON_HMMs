@@ -1,6 +1,4 @@
 function [Network] = ICFwConsensus(Sim,HMM,Network,k)
-    AdjMat = Network.graph{k}.adjacency;
-    Graph = generate_graph(AdjMat);
     %% Local Posteriors
     for i  = 1:Network.NumNodes
         Network.Node(i).ICF_Est.Pred(:,k) =  HMM.MotMdl'*Network.Node(i).ICF_Est.Prior(:,k);
@@ -16,12 +14,12 @@ function [Network] = ICFwConsensus(Sim,HMM,Network,k)
                 Network.Node(iNode).ICF_Est.ConsesnsusData(k).ICF(:,iConsensus) = Network.Node(iNode).ICF_Est.Post(:,k);
             else
 %                 iNeighbours = find(Network.Graph.Adj(iNode,:));
-                iNeighbours = find(AdjMat(iNode,:)~=0);
+                iNeighbours = find(Network.AdjMat(iNode,:)~=0);
                 LocalNetwork = Network.Node(iNeighbours);
                 if Sim.EstDoOpt
                     ICF =  LocalConservativeFusionOpt(LocalNetwork,iConsensus,'NGCF_ICF',k);
                 else
-                    ICF = LocalConservativeFusionNoOpt(LocalNetwork,iConsensus,'NGCF_ICF',k, Graph, iNeighbours, iNode);
+                    ICF = LocalConservativeFusionNoOpt(LocalNetwork,iConsensus,'NGCF_ICF',k, Network.ConsWeightMat(:,:,k), iNeighbours, iNode);
                 end                                
                 if isempty(ICF)
                     ICF = Network.Node(iNode).ICF_Est.ConsesnsusData(k).ICF(:,iConsensus-1);

@@ -12,7 +12,7 @@ function d = KLD(P,Q)
             k=k+1;
         end
     end
-%     Pn0 = P(P~=0);
-%     Qn0 = Q(Q~=0);
+    Pn0 = Pn0(Pn0~=0);
+    Qn0 = Qn0(Pn0~=0);
     d = sum(Pn0.*log(Pn0./Qn0));
 end

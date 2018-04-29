@@ -1,4 +1,4 @@
-function [Network] = FHS(~,HMM,Network,k)
+function [Network] = FHS(Sim,HMM,Network,k)
     %% Update the Network connection history in Network.ConHist
     [Network] = UpdateConHis(Network,k);
     %% Update Estimator Posteriors
@@ -21,8 +21,12 @@ function [Network] = FHS(~,HMM,Network,k)
                 Pred = HMM.MotMdl'*Prior;
                 Post = Pred;
                 for j = 1:Network.NumNodes
-                    if t <= ConHist(j);
-                        Post = Post.*Network.Node(j).ObsMdl(:,Network.Node(j).z(t));
+                    if t <= ConHist(j)
+                        if Sim.HomObsMdl
+                            Post = Post.*Network.Node(j).ObsMdl(:,Network.Node(j).z(t));
+                        else
+                            Post = Post.*Network.Node(j).ObsMdlHist(:,Network.Node(j).z(t),t);
+                        end
                     end
                 end
                 Post = Post/sum(Post);

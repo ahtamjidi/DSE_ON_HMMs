@@ -6,9 +6,7 @@ function Vis = InitVis(World,Sim,Net)
     Vis.yLen = Vis.PL*World.n_r;
     
     %% Setup Figure
-
-        Vis.fig = gcf;
-
+    Vis.fig = gcf;
     axis square;
     axis([-.10 Vis.xLen+.1 -.1 Vis.yLen+.1]);
     colormap(gray);

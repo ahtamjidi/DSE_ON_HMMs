@@ -1,35 +1,35 @@
-function varargout = PlotGraphs(varargin)
-% PlotGraphs MATLAB code for PlotGraphs.fig
-%      PlotGraphs, by itself, creates a new PlotGraphs or raises the existing
+function varargout = PlotGrid(varargin)
+% PlotGrid MATLAB code for PlotGrid.fig
+%      PlotGrid, by itself, creates a new PlotGrid or raises the existing
 %      singleton*.
 %
-%      H = PlotGraphs returns the handle to a new PlotGraphs or the handle to
+%      H = PlotGrid returns the handle to a new PlotGrid or the handle to
 %      the existing singleton*.
 %
-%      PlotGraphs('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in PlotGraphs.M with the given input arguments.
+%      PlotGrid('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in PlotGrid.M with the given input arguments.
 %
-%      PlotGraphs('Property','Value',...) creates a new PlotGraphs or raises the
+%      PlotGrid('Property','Value',...) creates a new PlotGrid or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before PlotGraphs_OpeningFcn gets called.  An
+%      applied to the GUI before PlotGrid_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to PlotGraphs_OpeningFcn via varargin.
+%      stop.  All inputs are passed to PlotGrid_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help PlotGraphs
+% Edit the above text to modify the response to help PlotGrid
 
-% Last Modified by GUIDE v2.5 19-Apr-2018 10:21:33
+% Last Modified by GUIDE v2.5 29-Apr-2018 11:47:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @PlotGraphs_OpeningFcn, ...
-                   'gui_OutputFcn',  @PlotGraphs_OutputFcn, ...
+                   'gui_OpeningFcn', @PlotGrid_OpeningFcn, ...
+                   'gui_OutputFcn',  @PlotGrid_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -43,25 +43,25 @@ else
 end
 % End initialization code - DO NOT EDIT
 
-% --- Executes just before PlotGraphs is made visible.
-function PlotGraphs_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before PlotGrid is made visible.
+function PlotGrid_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to PlotGraphs (see VARARGIN)
+% varargin   command line arguments to PlotGrid (see VARARGIN)
 
 if size(varargin,2)~=3
-    % Choose default command line output for PlotGraphs
+    % Choose default command line output for PlotGrid
     handles.output = hObject;
     handles.SIMDATA = varargin;
 
     % Update handles structure
     guidata(hObject, handles);    
     % This sets up the initial plot - only do when we are invisible
-    % so window can get raised using PlotGraphs.
+    % so window can get raised using PlotGrid.
     if strcmp(get(hObject,'Visible'),'off')
-        plot(rand(5),'Parent',handles.axes1);
+        plot(rand(5),'Parent',handles.Ax1);
     end
     return;
 end
@@ -72,20 +72,32 @@ HMM = varargin{2};
 Network = varargin{3};
 
 initVal = 1; m = 1; M = Sim.EndTime;
-p = plot(Network.graph{initVal}.simplify, 'Parent',handles.axes1,'Layout','circle');
 
 
-MC = dtmc(HMM.MotMdl);
-MCG = graphplot(handles.axes2,MC,'ColorEdges',true);
-MCG.NodeColor=[0 0 0];
-highlight(MCG,HMM.TrueStates(initVal),'NodeColor','red');
 
-% Choose default command line output for PlotGraphs
+set(handles.Ax1,'xtick',[]);
+set(handles.Ax1,'ytick',[]);
+
+% Choose default command line output for PlotGrid
 handles.output = hObject;
 handles.SIMDATA = varargin;
-handles.GRAPH_POINTS = {p.XData,p.YData};
-handles.MC = MC;
-handles.MCG = MCG;
+handles.Vis = InitVis(Sim,HMM,Network,handles.Ax1);
+handles.Vis = VisStep(Sim,HMM,Network,handles.Vis,initVal);
+
+hAx = [handles.Ax11 handles.Ax12 handles.Ax21 handles.Ax22];
+hEd = [handles.E11 handles.E12 handles.E21 handles.E22];
+for i=1:length(hAx)
+    EE = int32(str2double(hEd(i).String));
+    axis(hAx(i),'square');
+    set(hAx(i),'xtick',[]);
+    set(hAx(i),'ytick',[]);
+    axis(hAx(i),[0 handles.Vis.xLen 0 handles.Vis.yLen]);
+    im = ProcPMFs(Sim,Network,initVal,int32(EE/10),mod(EE,10));
+    handles.hIm(i) = imagesc(hAx(i),'CData',im,[0 1]);
+end
+
+
+
 
 % Update handles structure
 guidata(hObject, handles);
@@ -101,6 +113,22 @@ set(handles.text3,'String',num2str(initVal));
 handles.slider1.addlistener('ContinuousValueChange',@(hFigure,eventdata) slider1ContValCallback(hFigure,eventdata));
 
 
+function im = ProcPMFs(Sim,Network,t,n,type)
+    im=zeros(Sim.World.n_r,Sim.World.n_c);
+    for i = 1:Sim.NumStates
+        [x,y] = find(Sim.World.StatesGrid == i);
+        if type == 1
+            im(x,y) = 1- Network.Node(n).HYB_Est.Post(i,t)^.5;
+        elseif type == 2
+            im(x,y) = 1- Network.Node(n).ICF_Est.Post(i,t)^.5;
+        elseif type == 3
+            im(x,y) = 1- Network.Node(n).FHS_Est.Post(i,t)^.5;
+        else
+            im(x,y) = 1- Network.Node(n).CEN_Est.Post(i,t)^.5;
+        end
+    end
+    im = flipud(im);
+
 function slider1ContValCallback(hObject,eventdata)
     vf = get(hObject,'Value');
     v = int32(vf);
@@ -110,28 +138,34 @@ function slider1ContValCallback(hObject,eventdata)
     Sim = h.SIMDATA{1};
     HMM = h.SIMDATA{2};
     Network = h.SIMDATA{3};
-    XData = h.GRAPH_POINTS{1};
-    YData = h.GRAPH_POINTS{2};
-    g = Network.graph{v};
-    plot(g.simplify, 'Parent', h.axes1, 'XData',XData, 'YData',YData);
+    h.Vis = VisStep(Sim,HMM,Network,h.Vis,v);
+    guidata(hObject.Parent.Parent, h); 
     
-    h.MCG.NodeColor=[0 0 0];
-    highlight(h.MCG,HMM.TrueStates(v),'NodeColor','red');
-    if v==1
-    else        
+%     E11 = int32(str2double(h.E11.String));
+%     axis(h.Ax11,'square');
+%     set(h.Ax11,'xtick',[]);
+%     set(h.Ax11,'ytick',[]);
+%     axis(h.Ax11,[0 h.Vis.xLen 0 h.Vis.yLen]);
+%     h.im11.CData = ProcPMFs(Sim,Network,v,int32(E11/10),mod(E11,10));
+
+    hAx = [h.Ax11 h.Ax12 h.Ax21 h.Ax22];
+    hEd = [h.E11 h.E12 h.E21 h.E22];
+    for i=1:length(hAx)
+        EE = int32(str2double(hEd(i).String));
+        im = ProcPMFs(Sim,Network,v,int32(EE/10),mod(EE,10));
+        h.hIm(i).CData = im;
     end
     
     
     
-    
 
 
-% UIWAIT makes PlotGraphs wait for user response (see UIRESUME)
+% UIWAIT makes PlotGrid wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = PlotGraphs_OutputFcn(hObject, eventdata, handles)
+function varargout = PlotGrid_OutputFcn(hObject, eventdata, handles)
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -145,7 +179,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-axes(handles.axes1);
+axes(handles.Ax1);
 cla;
 
 popup_sel_index = get(handles.popupmenu1, 'Value');
@@ -255,3 +289,95 @@ function figure1_SizeChangedFcn(hObject, eventdata, handles)
 % hObject    handle to figure1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+
+function E11_Callback(hObject, eventdata, handles)
+% hObject    handle to E11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of E11 as text
+%        str2double(get(hObject,'String')) returns contents of E11 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function E11_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to E11 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function E21_Callback(hObject, eventdata, handles)
+% hObject    handle to E21 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of E21 as text
+%        str2double(get(hObject,'String')) returns contents of E21 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function E21_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to E21 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function E12_Callback(hObject, eventdata, handles)
+% hObject    handle to E12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of E12 as text
+%        str2double(get(hObject,'String')) returns contents of E12 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function E12_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to E12 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function E22_Callback(hObject, eventdata, handles)
+% hObject    handle to E22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of E22 as text
+%        str2double(get(hObject,'String')) returns contents of E22 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function E22_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to E22 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

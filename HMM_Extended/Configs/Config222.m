@@ -1,20 +1,23 @@
-function Sim = Config112()
+function Sim = Config222()
     %% General
     Sim.EndTime = 27*2;
     Sim.seed = 1458;
-    Sim.MarkovMdl = 1;
-    Sim.NetworkMdl = 1;
+    Sim.MarkovMdl = 2;    
+    Sim.NetworkMdl = 2;    
     Sim.EstimatorMdl = 2;
     %% Markov Model
-    Sim.MotMdl = [.25 .75; .65 .35; ];
-    Sim.NumStates = size(Sim.MotMdl,1);
-    Sim.InitState = 1;
+    Sim.NumStates = 15;
+    Sim.NoSelfLoop = false;
+    Sim.TranPrMatZeros = 0.6;  
+    Sim.InitState = 1;  
     %% Network Model
-    Sim.ObsMdl(:,:,1) = [5/6, 1/6;3/12, 9/12];
-    Sim.ObsMdl(:,:,2) = [4/6, 2/6;4/12, 8/12];
-    Sim.ObsMdl(:,:,3) = [4/6, 2/6;3/12, 9/12];
-    Sim.ObsMdl(:,:,4) = [0.95, 0.05;0.05, 0.95];        
-    Sim.NumNodes = size(Sim.ObsMdl,3);      
+    Sim.NumNodes = 5; % Works for 1_Small-nNodes-2States and 2_Small-nNodes-mStates
+    DiagRng = repmat([0.6 0.7],Sim.NumNodes,1);
+    DiagRng(1,:) = [0.6 0.7];
+    DiagRng(2,:) = [0.6 0.75];
+    DiagRng(3,:) = [0.6 0.7];
+    DiagRng(4,:) = [0.6 0.75];
+    Sim.ObsMdlDiagRng = DiagRng;
     NetConnectivity = zeros(Sim.NumNodes,Sim.EndTime);
     NetConnectivity([1 2],5:11) = 1;
     NetConnectivity([4 5],5:11) = 2;
@@ -32,5 +35,5 @@ function Sim = Config112()
     Sim.HomObsMdl = 1;
     %% Estimator Model
     Sim.EstDoOpt = 0;
-    Sim.ConsensusIter = 50;
+    Sim.ConsensusIter = 50;    
 end

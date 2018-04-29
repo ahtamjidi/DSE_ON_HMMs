@@ -29,6 +29,7 @@ function Sim = Config111()
     NetConnectivity([4 5],40:42) = 2;
     NetConnectivity([1 2 3 4 5],44:54) = 1;
     Sim.NetConnectivity = NetConnectivity(1:Sim.NumNodes,1:Sim.EndTime);
+    Sim.HomObsMdl = 1;
     %% Estimator Model
     Sim.EstDoOpt = 0;    
 end
