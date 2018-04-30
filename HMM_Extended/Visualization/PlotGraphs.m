@@ -70,8 +70,9 @@ end
 Sim = varargin{1};
 HMM = varargin{2};
 Network = varargin{3};
+
 initVal = 1; m = 1; M = Sim.EndTime;
-p = plot(Network.graph{initVal}, 'Parent',handles.axes1,'Layout','circle');
+p = plot(Network.graph{initVal}.simplify, 'Parent',handles.axes1,'Layout','circle');
 
 
 MC = dtmc(HMM.MotMdl);
@@ -112,7 +113,7 @@ function slider1ContValCallback(hObject,eventdata)
     XData = h.GRAPH_POINTS{1};
     YData = h.GRAPH_POINTS{2};
     g = Network.graph{v};
-    plot(g, 'Parent', h.axes1, 'XData',XData, 'YData',YData);
+    plot(g.simplify, 'Parent', h.axes1, 'XData',XData, 'YData',YData);
     
     h.MCG.NodeColor=[0 0 0];
     highlight(h.MCG,HMM.TrueStates(v),'NodeColor','red');

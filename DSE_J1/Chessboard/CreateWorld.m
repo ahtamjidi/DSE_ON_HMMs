@@ -7,7 +7,7 @@ function [World] = CreateWorld(ImageName)
     k = 1;
     for i = 1:World.n_r
         for j = 1:World.n_c
-            if World.BinaryGrid(i,j) ~= 0;
+            if World.BinaryGrid(i,j) ~= 0
                 World.StatesGrid(i,j) = k;
                 k = k+1;
             end
