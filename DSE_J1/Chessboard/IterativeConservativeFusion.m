@@ -28,6 +28,11 @@ function Network = NGMD_ICF(Network,k)
             end
         end
     end
+    
+    for iNode=1:Network.NumOfNodes
+        Network.Node(iNode).Prior(:,k) = Network.Node(iNode).ConsesnsusData(k).ICF(:,Network.ConsensusIter);
+    end
+
 end
 
 function Network = NGMD_VICF(Network,k)
@@ -47,6 +52,10 @@ function Network = NGMD_VICF(Network,k)
                 Network.Node(iNode).ConsesnsusData(k).ICF(:,iConsensus) = ICF;
             end
         end
+    end
+    
+    for iNode=1:Network.NumOfNodes
+        Network.Node(iNode).Prior(:,k) = Network.Node(iNode).ConsesnsusData(k).ICF(:,Network.ConsensusIter);
     end
 end
 

@@ -7,7 +7,7 @@ function SetConfig(World)
     Config.GT_InitState = 11*25;
     Config.DoUpdate = 1;
     
-    Config.Network.ConsensusIter = 50; 
+    Config.Network.ConsensusIter = 5; 
     Config.Network.PorbLinkFailure = 0.3;
     Config.Network.NumOfNodes = 6;
     Config.Network.CoonectivityPercentage = 0.1; % a number between 0 and 1. 1 means full connectivity and 0 meanse full disconnection
