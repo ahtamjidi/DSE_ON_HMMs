@@ -35,5 +35,5 @@ function Sim = Config222()
     Sim.HomObsMdl = 1;
     %% Estimator Model
     Sim.EstDoOpt = 0;
-    Sim.ConsensusIter = 50;    
+    Sim.ConsensusIter = 50;
 end

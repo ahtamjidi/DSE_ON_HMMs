@@ -2,7 +2,7 @@ function PlotNodesL1(NodesVec,Sim,Network,PM)
     figure;
     N = size(NodesVec,2);
     for j = 1:N 
-        subplot(N*100+1*10+j);
+        subplot(N,1,j);
         for i = 1:Sim.EndTime
             NumConComps = max(Network.Connectivity(:,i));
             for k = 1:NumConComps
@@ -18,7 +18,6 @@ function PlotNodesL1(NodesVec,Sim,Network,PM)
                     break;
                 end
             end
-
         end
         hold on;
         gm = plot(PM.HYB2FHS.L1(NodesVec(j),:),'*-');

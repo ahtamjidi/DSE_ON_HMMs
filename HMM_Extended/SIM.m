@@ -1,6 +1,6 @@
-function [PM,Sim,HMM,Network] = SIM(Sim)
+function [PM,Sim,HMM,Network] = SIM(Sim,verbosity)
     %% General Initilizations
-    CheckSim(Sim);
+%     CheckSim(Sim);
     rng(Sim.seed);
     %% Mode Specific Initilizations
     HMMinit = str2func(strcat('HMMinit_',int2str(Sim.MarkovMdl)));
@@ -15,14 +15,16 @@ function [PM,Sim,HMM,Network] = SIM(Sim)
         HMM = HMMstep(HMM,k);
         Network = NETstep(Sim,HMM,Network,k);
         Network = ESTstep(Sim,HMM,Network,k);
-        disp(char(strcat('Step time',{' '},num2str(k),' is done')));
+        if verbosity==1
+            disp(char(strcat('Step time',{' '},num2str(k),' is done')));
+        end
     end
     %% Performance Measures
     [PM.HYB2FHS,PM.ICF2FHS] = EstsDist2FHS(Sim,Network);
-    [PM.HYB2CEN,PM.ICF2CEN] = EstsDist2CEN(Sim,Network);    
+    [PM.HYB2CEN,PM.ICF2CEN,PM.FHS2CEN] = EstsDist2CEN(Sim,Network);    
 end
-function CheckSim(Sim) % There are lots of checks yet to be implemented!
-    if size(Sim.NetConnectivity,1) ~= Sim.NumNodes
-        error('In this mode size of NetConnectivity must be equal to NumNodes');
-    end
-end
+% function CheckSim(Sim) % There are lots of checks yet to be implemented!
+%     if size(Sim.NetConnectivity,1) ~= Sim.NumNodes
+%         error('In this mode size of NetConnectivity must be equal to NumNodes');
+%     end
+% end
