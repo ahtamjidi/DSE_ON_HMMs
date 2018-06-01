@@ -4,7 +4,7 @@ close all;
 clc;
 addpath(genpath('./'),'-end');
 %% Configuration
-Sim = Config321();
+Sim = Config341();
 %% Simulation
 [PM,Sim,HMM,Network] = SIM(Sim,1);
 %% Plots

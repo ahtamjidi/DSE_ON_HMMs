@@ -22,16 +22,19 @@ function PlotNodesL1(NodesVec,Sim,Network,PM)
         hold on;
         gm = plot(PM.HYB2FHS.L1(NodesVec(j),:),'*-');
         cf = plot(PM.ICF2FHS.L1(NodesVec(j),:),'*-');
-        xlabel('step');
-        ylabel(strcat('L',int2str(NodesVec(j))));
-        legend([gm,cf],strcat('N',int2str(NodesVec(j)),'_{HYB}'),strcat('N',int2str(NodesVec(j)),'_{ICF}'));
+
     end
-%     figure;
-%     hold on;
-%     gm = plot(PM_HYB_FHS.meanL1,'*-'); 
-%     cf = plot(PM_ICF_FHS.meanL1,'*-'); 
-%     xlabel('step');
-%     ylabel(strcat('L',int2str(j)));  
-%     legend([gm,cf],strcat('Average L1 HYB'),strcat('Average L1 ICF'));    
+            xlabel('Time');
+        ylabel(strcat('L',int2str(NodesVec(j))));
+        legend([gm,cf],'HYB','ICF');
+    
+    
+    figure;
+    hold on;
+    gm = plot(PM.HYB2FHS.meanL1,'*-'); 
+    cf = plot(PM.ICF2FHS.meanL1,'*-'); 
+    xlabel('step');
+    ylabel(strcat('L',int2str(j)));  
+    legend([gm,cf],strcat('Average L1 HYB'),strcat('Average L1 ICF'));    
 end
 

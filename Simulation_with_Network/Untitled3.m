@@ -1,11 +1,11 @@
-close all
-clear all %#ok<CLALL>
-load DATA_final.mat
-SetConfig(World);
+% close all
+% clear all %#ok<CLALL>
+% load DATA_final.mat
+% SetConfig(World);
 im1 = 1*ones(25,25);
 im2 = 1*ones(25,25);
 
-a = [0 0 0 1 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 1 1 1 0 0 0 0 1 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0];
+% a = [0 0 0 1 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 1 1 1 0 0 0 0 1 1 1 1 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0];
 for t = 1:size(Sim.GT,2)
     if t == 1
         subplot(2,3,[1 2 4 5]);

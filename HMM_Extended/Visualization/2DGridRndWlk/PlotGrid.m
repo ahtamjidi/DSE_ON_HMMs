@@ -117,14 +117,15 @@ function im = ProcPMFs(Sim,Network,t,n,type)
     im=zeros(Sim.World.n_r,Sim.World.n_c);
     for i = 1:Sim.NumStates
         [x,y] = find(Sim.World.StatesGrid == i);
+        r = .25;
         if type == 1
-            im(x,y) = 1- Network.Node(n).HYB_Est.Post(i,t)^.5;
+            im(x,y) = 1- Network.Node(n).HYB_Est.Post(i,t)^r;
         elseif type == 2
-            im(x,y) = 1- Network.Node(n).ICF_Est.Post(i,t)^.5;
+            im(x,y) = 1- Network.Node(n).ICF_Est.Post(i,t)^r;
         elseif type == 3
-            im(x,y) = 1- Network.Node(n).FHS_Est.Post(i,t)^.5;
+            im(x,y) = 1- Network.Node(n).FHS_Est.Post(i,t)^r;
         else
-            im(x,y) = 1- Network.Node(n).CEN_Est.Post(i,t)^.5;
+            im(x,y) = 1- Network.CEN_Est.Post(i,t)^r;
         end
     end
     im = flipud(im);
